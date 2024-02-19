@@ -1,0 +1,24 @@
+<!-- В файле your_template.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать заявку на обслуживание</title>
+</head>
+<body>
+    <h2>Создать заявку на обслуживание</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ technic_form.as_p }}
+        {{ repair_form.as_p }}
+        <button type="submit">Создать заявку</button>
+    </form>
+
+    <!-- Кнопка для выхода -->
+    <form action="{% url 'LogoutUser' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Выход</button>
+    </form>
+</body>
+</html>

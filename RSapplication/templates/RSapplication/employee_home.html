@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница сотрудника</title>
+</head>
+<body>
+    <ul>
+    {% for request in all_requests %}
+        <li>{{ request.description }}</li>
+        <!-- Дополнительные поля заявки могут быть отображены здесь -->
+    {% endfor %}
+    </ul>
+</body>
+</html>
