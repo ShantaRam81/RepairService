@@ -15,7 +15,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 
 
-def registeration(request):
+def main_page(request):
+    return render(request, 'RSapplication/main_page.html')
+
+
+def registration(request):
     if request.method == 'POST':
         form = ClientRegistrationForm(request.POST)
         if form.is_valid():
