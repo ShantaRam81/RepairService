@@ -2,15 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Страница сотрудника</title>
+    <title>Страница менеджера</title>
 </head>
 <body>
+    <h1>Список заявок</h1>
     <ul>
     {% for request in all_requests %}
         <li>{{ request.description }}</li>
         <li>{{ request.technic.model }}</li>
         <li>{{ request.technic.brand }}</li>
-        </br>
+        <form method="post" action="{% url 'EmployeeHomePage' %}">
+    {% csrf_token %}
+    <input type="hidden" name="request_id" value="{{ request.id }}">
+    <select name="repairman">
+        {% for repairman in repairmen %}
+            <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" name="action" value="create_order">Создать заказ</button>
+</form>
     {% endfor %}
     </ul>
 </body>

@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm  # , EmailAuthenticationForm
+from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm, RepairOrderForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -121,14 +121,24 @@ def create_repair_request(request):
                                                        'repair_requests': repair_requests})
 
 
-def all_requests_for_employee(request):
-    # Получаем все заявки на обслуживание
+def manager_page(request):
     all_requests = RepairRequest.objects.all()
+    repairmen = CustomUser.objects.filter(position='Repairman')
 
-    # Передаем заявки в контекст шаблона
-    context = {
-        'all_requests': all_requests
-    }
+    if request.method == 'POST' and 'action' in request.POST:
+        if request.POST['action'] == 'create_order':
+            form = RepairOrderForm(request.POST)
+            if form.is_valid():
+                request_id = form.cleaned_data['request_id']
+                repairman_id = form.cleaned_data['repairman']
+                print("Request ID:", request_id)
+                print("Repairman ID:", repairman_id)
+                request_object = RepairRequest.objects.get(id=request_id)
+                repairman = CustomUser.objects.get(id=repairman_id)
+                RepairOrder.objects.create(request=request_object, repairman=repairman, status='в работе')
+                return redirect('employee_home')
 
-    # Отображаем шаблон и передаем контекст
-    return render(request, 'RSapplication/employee_home.html', context)
+    else:
+        form = RepairOrderForm()
+
+    return render(request, 'RSapplication/employee_home.html', {'all_requests': all_requests, 'repairmen': repairmen, 'form': form})

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, RepairRequest, Technic
+from .models import CustomUser, RepairRequest, Technic, RepairOrder
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -61,3 +61,13 @@ class TechnicForm(forms.ModelForm):
     class Meta:
         model = Technic
         fields = ['brand', 'model']
+
+
+class RepairOrderForm(forms.ModelForm):
+    class Meta:
+        model = RepairOrder
+        fields = ['request', 'repairman']  # Обновляем поля формы
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['request'].widget = forms.HiddenInput()  # Скрываем поле для request_id

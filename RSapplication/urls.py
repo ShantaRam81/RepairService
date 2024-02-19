@@ -8,5 +8,5 @@ urlpatterns = [
     path('logout', logout_view, name='LogoutUser'),
     path('home', login_required(create_repair_request), name='HomePage'),
     path('repair_request', create_repair_request, name='RepairRequier'),
-    path('employee_home', all_requests_for_employee, name='EmployeeHomePage')
+    path('employee_home', manager_page, name='EmployeeHomePage')
 ]
