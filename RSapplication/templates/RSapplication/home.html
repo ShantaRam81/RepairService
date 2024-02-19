@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Создать заявку на обслуживание</title>
+</head>
+<body>
+<h1>Welcome to Home Page</h1>
+    <h2>Your Repair Requests:</h2>
+    <ul>
+        {% for repair_request in repair_requests %}
+        <li>{{ repair_request.description }} - {{ repair_request.created_time }}</li>
+        {% endfor %}
+    </ul>
+    <form method="post">
+        {% csrf_token %}
+        {{ technic_form.as_p }}
+        {{ repair_form.as_p }}
+        <button type="submit">Создать заявку</button>
+    </form>
+    <!-- Кнопка для выхода -->
+    <form action="{% url 'LogoutUser' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Выход</button>
+    </form>
+</body>
+</html>
