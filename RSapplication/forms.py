@@ -63,11 +63,5 @@ class TechnicForm(forms.ModelForm):
         fields = ['brand', 'model']
 
 
-class RepairOrderForm(forms.ModelForm):
-    class Meta:
-        model = RepairOrder
-        fields = ['request', 'repairman']  # Обновляем поля формы
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['request'].widget = forms.HiddenInput()  # Скрываем поле для request_id
+

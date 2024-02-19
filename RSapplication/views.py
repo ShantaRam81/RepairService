@@ -2,16 +2,16 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
 from django.shortcuts import render, redirect
-from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm, RepairOrderForm
+from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic import FormView, TemplateView
 from .models import *
-
+from django.http import HttpResponseBadRequest
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-
+from django.http import HttpResponseRedirect
 from django.contrib.auth.hashers import make_password
 
 
@@ -122,23 +122,26 @@ def create_repair_request(request):
 
 
 def manager_page(request):
-    all_requests = RepairRequest.objects.all()
     repairmen = CustomUser.objects.filter(position='Repairman')
 
     if request.method == 'POST' and 'action' in request.POST:
         if request.POST['action'] == 'create_order':
-            form = RepairOrderForm(request.POST)
-            if form.is_valid():
-                request_id = form.cleaned_data['request_id']
-                repairman_id = form.cleaned_data['repairman']
-                print("Request ID:", request_id)
-                print("Repairman ID:", repairman_id)
+            try:
+                request_id = int(request.POST.get('request_id'))
+                repairman_id = int(request.POST.get('repairman'))
                 request_object = RepairRequest.objects.get(id=request_id)
                 repairman = CustomUser.objects.get(id=repairman_id)
                 RepairOrder.objects.create(request=request_object, repairman=repairman, status='в работе')
-                return redirect('employee_home')
+                # Записываем ID созданного заказа
+                created_order_id = RepairOrder.objects.latest('id').id
+                return HttpResponseRedirect(request.path_info)
+            except (ValueError, RepairRequest.DoesNotExist, CustomUser.DoesNotExist) as e:
+                print("Ошибка при создании заказа:", e)
+                return HttpResponseBadRequest("Ошибка при создании заказа.")
 
-    else:
-        form = RepairOrderForm()
+    # Получаем заявки, у которых нет соответствующих заказов
+    all_requests = RepairRequest.objects.exclude(Заявка_на_ремонт__isnull=False)
 
-    return render(request, 'RSapplication/employee_home.html', {'all_requests': all_requests, 'repairmen': repairmen, 'form': form})
+    return render(request, 'RSapplication/employee_home.html', {'all_requests': all_requests, 'repairmen': repairmen})
+
+

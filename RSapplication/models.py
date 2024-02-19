@@ -52,11 +52,14 @@ class RepairRequest(models.Model):
         verbose_name = 'Заявка на обслуживание'
         verbose_name_plural = 'Заявки на обслуживание'
 
+    def __str__(self):
+        return self.description
+
 
 class RepairOrder(models.Model):
     request = models.ForeignKey(RepairRequest, on_delete=models.CASCADE, related_name='Заявка_на_ремонт', verbose_name='Request')
     repairman = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='Мастер', verbose_name='Repairman')
-    status = models.CharField(max_length=20)
+    status = models.CharField(max_length=20, null = True)
     created_time = models.DateTimeField(default=timezone.now, null = True, verbose_name='Order created time')
     end_time = models.DateTimeField(default=timezone.now, null = True, verbose_name='End time')
     class Meta:
