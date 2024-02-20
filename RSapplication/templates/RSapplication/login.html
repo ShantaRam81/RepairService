@@ -29,6 +29,10 @@
     <div class='button-center'>
         <button class="login-button" type="submit">Авторизоваться</button>
     </div>
+    <hr class='hr-line'>
+    <div class="login-prompt">
+        <p class="login-text">Нет аккаунта? <a class = "login-link" href="{% url 'registration' %}">Регистрация</a></p>
+    </div>
 </form>
 <script>
     const inputPass = document.getElementById('password-input');
