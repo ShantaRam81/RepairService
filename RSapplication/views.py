@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
@@ -66,7 +66,10 @@ class LoginUser(SuccessMessageMixin, FormView):
         if user.user_type == "client":
             return reverse_lazy('HomePage')
         else:
-            return reverse_lazy('EmployeeHomePage')
+            if user.position == 'manager':
+                return reverse_lazy('ManagerHomePage')
+            elif user.position == 'repairman':
+                return reverse_lazy('RepairmanHomePage')
 
     def form_valid(self, form):
         # Получаем данные пользователя из формы аутентификации
@@ -122,7 +125,7 @@ def create_repair_request(request):
 
 
 def manager_page(request):
-    repairmen = CustomUser.objects.filter(position='Repairman')
+    repairmen = CustomUser.objects.filter(position='repairman')
 
     if request.method == 'POST' and 'action' in request.POST:
         if request.POST['action'] == 'create_order':
@@ -131,7 +134,7 @@ def manager_page(request):
                 repairman_id = int(request.POST.get('repairman'))
                 request_object = RepairRequest.objects.get(id=request_id)
                 repairman = CustomUser.objects.get(id=repairman_id)
-                RepairOrder.objects.create(request=request_object, repairman=repairman, status='в работе')
+                RepairOrder.objects.create(request=request_object, repairman=repairman, status='Передан в работу')
                 # Записываем ID созданного заказа
                 created_order_id = RepairOrder.objects.latest('id').id
                 return HttpResponseRedirect(request.path_info)
@@ -142,6 +145,42 @@ def manager_page(request):
     # Получаем заявки, у которых нет соответствующих заказов
     all_requests = RepairRequest.objects.exclude(Заявка_на_ремонт__isnull=False)
 
-    return render(request, 'RSapplication/employee_home.html', {'all_requests': all_requests, 'repairmen': repairmen})
+    return render(request, 'RSapplication/manager_home.html', {'all_requests': all_requests, 'repairmen': repairmen})
+
+
+@login_required
+def repairman_orders(request):
+    # Получаем текущего пользователя (мастера)
+    current_user = request.user
+
+    # Обработка запроса на обновление статуса заказа
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        new_status = request.POST.get('status')
+
+        # Получаем объект заказа или возвращаем ошибку 404, если его нет
+        order = get_object_or_404(RepairOrder, id=order_id)
+
+        # Обновляем статус заказа и сохраняем его
+        order.status = new_status
+        order.save()
+
+        # Обработка услуг для заказа
+        selected_services = request.POST.getlist('selected_services')
+        for service_id in selected_services:
+            service = Services.objects.get(id=service_id)
+            ServiceList.objects.create(service=service, repair_order=order)
+
+        # После успешного обновления статуса перенаправляем пользователя
+        return redirect('RepairmanHomePage')
+
+    # Фильтруем заказы по полю repairman для текущего пользователя
+    orders = RepairOrder.objects.filter(repairman=current_user)
+
+    # Получаем список доступных услуг
+    services = Services.objects.all()
+
+    # Передаем отфильтрованные заказы и список услуг в шаблон
+    return render(request, 'RSapplication/repairman_home.html', {'orders': orders, 'services': services})
 
 

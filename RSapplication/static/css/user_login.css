@@ -1,0 +1,108 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(0deg, rgb(0, 0, 0) 19%, rgb(34, 34, 34));
+}
+
+/* Стили для формы */
+form {
+    width: 400px;
+    max-width: 500px; /* Ширина формы */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    padding: 35px; /* Отступы вокруг содержимого формы */
+    border: 0; /* Граница формы */
+    border-radius: 25px; /* Закругление углов формы */
+    background-color: #121212; /* Цвет фона формы */
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+}
+
+/* Стили для текстовых полей и меток */
+.input-group {
+    margin-bottom: 20px; /* Отступ между группами элементов */
+}
+
+.input-group label {
+    display: block; /* Размещаем метку на отдельной строке */
+    color: white;
+    font-size: 0.875rem;;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: calc(100% - 35px); /* Ширина поля ввода (вычисляемая, минус отступы) */
+    padding: 10px; /* Внутренние отступы текстовых полей */
+    border-radius: 10px; /* Закругление углов текстовых полей */
+    border: 0; /* Границы текстовых полей */
+    background-color: #242424;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.875rem;
+    color: white;
+}
+
+/* Стили для кнопки */
+.button-center {
+    text-align: center; /* Выравнивание кнопки по центру */
+    margin-top: 40px;
+}
+
+button{
+    border: 0;
+    border-radius: 500px;
+    background-color: coral;
+    padding: 10px 30px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bolder;
+    transition: transform .2s;
+}
+
+button:hover{
+    transform: scale(1.05);
+}
+
+.hr-line{
+    margin: 32px 20px;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+    border-image: initial;
+    border-top: 1px solid rgb(41, 41, 41);
+}
+
+.login-prompt{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login-link:hover{
+    color: coral;
+}
+.login-link{
+    color: white;
+}
+
+.login-text{
+    margin: 0;
+    color: #bababa;
+}
+
+.pass-icon{
+    position: absolute;
+    right: 41%;
+    top: 50.4%;
+    cursor: pointer;
+    color: coral;
+}
+
+
+
+
+
+
+

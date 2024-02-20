@@ -67,7 +67,7 @@ class RepairRequestForm(forms.ModelForm):
 class TechnicForm(forms.ModelForm):
     class Meta:
         model = Technic
-        fields = ['brand', 'model']
+        fields = ['type', 'brand', 'model']
 
 
 

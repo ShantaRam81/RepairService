@@ -11,7 +11,7 @@
         <li>{{ request.description }}</li>
         <li>{{ request.technic.model }}</li>
         <li>{{ request.technic.brand }}</li>
-        <form method="post" action="{% url 'EmployeeHomePage' %}">
+        <form method="post" action="{% url 'ManagerHomePage' %}">
             {% csrf_token %}
             <input type="hidden" name="request_id" value="{{ request.id }}">
             <select name="repairman">

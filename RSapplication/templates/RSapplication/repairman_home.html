@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заказы</title>
+</head>
+<body>
+<h1>Мои заказы</h1>
+<ul>
+    {% for order in orders %}
+        <li>
+            {{ order.request }} - {{ order.status }}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+                <select name="status">
+                    <option value="в работе">Принят</option>
+                    <option value="завершен">В работе</option>
+                    <option value="отменен">Отменен</option>
+                    <option value="отменен">Завершен</option>
+                </select>
+                <button type="submit">Изменить статус</button>
+
+                <h3>Выберите услуги:</h3>
+                <ul>
+                    {% for service in services %}
+                        <li>
+                            <input type="checkbox" name="selected_services" value="{{ service.id }}">
+                            {{ service.name }} - {{ service.coast }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <button type="submit">Добавить услуги</button>
+            </form>
+        </li>
+        <!-- Добавьте здесь другие поля заказа для отображения -->
+    {% endfor %}
+</ul>
+</body>
+</html>

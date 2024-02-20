@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,12 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/user_login.css' %}">
 <body>
-    <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p}}
-        <button type="submit">Login</button>
-    </form>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="input-group">
+        <label for="username">Эл. почта</label>
+        {{ form.username }}
+    </div>
+    <div class="input-group">
+        <label for="password">Пароль</label>
+        <input type="password" name="password" id="password-input">
+        <span class="pass-icon" id="pass-icon"><img src="{% static 'image/eye.png' %}" alt="" style="width:20px;height: 20px"></span>
+
+    </div>
+    <div class='button-center'>
+        <button class="login-button" type="submit">Авторизоваться</button>
+    </div>
+</form>
+<script>
+    const inputPass = document.getElementById('password-input');
+    const iconPass = document.getElementById('pass-icon');
+
+    iconPass.addEventListener('click', () => {
+        if (inputPass.getAttribute('type') === 'password') {
+            inputPass.setAttribute('type', 'text');
+        } else {
+            inputPass.setAttribute('type', 'password');
+        }
+    });
+</script>
+
+
 </body>
 </html>
