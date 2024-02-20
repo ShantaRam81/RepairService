@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet">
- <link rel="stylesheet" type="text/css" href="{% static 'css/client_register.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/client_register.css' %}">
 <body>
 
 <form method="post">
@@ -20,35 +20,39 @@
         {{ form.username }}
     </div>
     <div class="input-group">
-        <label for="id_email">Эл. почта:</label>
+        <label for="id_email">Эл. почта</label>
         {{ form.email }}
     </div>
     <div class="input-group">
-        <label for="id_password1">Пароль:</label>
+        <label for="id_password1">Пароль</label>
         {{ form.password1 }}
     </div>
     <div class="input-group">
-        <label for="id_password2">Повторение пароля:</label>
+        <label for="id_password2">Повторение пароля</label>
         {{ form.password2 }}
     </div>
     <div class="input-group">
-        <label for="id_firstname">Имя:</label>
+        <label for="id_firstname">Имя</label>
         {{ form.firstname }}
     </div>
     <div class="input-group">
-        <label for="id_lastname">Фамилия:</label>
+        <label for="id_lastname">Фамилия</label>
         {{ form.lastname }}
     </div>
     <div class="input-group">
-        <label for="phone_number">Номер телефона:</label>
+        <label for="phone_number">Номер телефона</label>
         {{ form.phone_number }}
     </div>
 
     <div class='button-center'>
-        <button type="submit">Зарегистрироваться</button>
+        <button class="reg-button" type="submit">Зарегистрироваться</button>
     </div>
-
+    <hr class='hr-line'>
+    <div class="login-prompt">
+        <p class="login-text">Есть аккаунт? <a class = "login-link" href="{% url 'LoginUser' %}">Войти</a></p>
+    </div>
 </form>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var inputField = document.querySelector('input[name="phone_number"]');
