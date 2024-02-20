@@ -7,7 +7,7 @@ from django.utils import timezone
 class CustomUser(AbstractUser):
     firstname = models.CharField(max_length=100, verbose_name='Имя')
     lastname = models.CharField(max_length=100, verbose_name='Фамилия')
-    phone_number = models.CharField(max_length=11, verbose_name='Номер телфона', unique=True)
+    phone_number = models.CharField(max_length=20, verbose_name='Номер телефона', unique=True)
     email = models.EmailField(max_length=100, verbose_name='Электронная почта', unique=True)
 
     USERNAME_FIELD = 'email'
@@ -26,6 +26,8 @@ class CustomUser(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
+
+
 
 
 # Изменяем related_name для обратных связей групп и разрешений

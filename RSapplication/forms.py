@@ -10,6 +10,7 @@ class ClientRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2', 'firstname', 'lastname', 'phone_number']
+        help_texts = []
         widgets = {
             "username": forms.TextInput(attrs={
                 'class': 'form-control',
@@ -40,6 +41,12 @@ class ClientRegistrationForm(UserCreationForm):
                 'placeholder': 'Номер телефона'
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['password1'].help_text = ''  # Убираем подсказки для поля password1
+        self.fields['password2'].help_text = ''
+        self.fields['username'].help_text = ''
 
     def save(self, commit=True):
         user = super().save(commit=False)

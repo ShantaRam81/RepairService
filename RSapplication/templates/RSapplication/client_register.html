@@ -1,4 +1,4 @@
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +8,84 @@
 </head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+ <link rel="stylesheet" type="text/css" href="{% static 'css/client_register.css' %}">
 <body>
-    <h2>Регистрация клиента</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="input-group">
+        <label for="id_username">Логин:</label>
+        {{ form.username }}
+    </div>
+    <div class="input-group">
+        <label for="id_email">Эл. почта:</label>
+        {{ form.email }}
+    </div>
+    <div class="input-group">
+        <label for="id_password1">Пароль:</label>
+        {{ form.password1 }}
+    </div>
+    <div class="input-group">
+        <label for="id_password2">Повторение пароля:</label>
+        {{ form.password2 }}
+    </div>
+    <div class="input-group">
+        <label for="id_firstname">Имя:</label>
+        {{ form.firstname }}
+    </div>
+    <div class="input-group">
+        <label for="id_lastname">Фамилия:</label>
+        {{ form.lastname }}
+    </div>
+    <div class="input-group">
+        <label for="phone_number">Номер телефона:</label>
+        {{ form.phone_number }}
+    </div>
+
+    <div class='button-center'>
         <button type="submit">Зарегистрироваться</button>
-    </form>
+    </div>
+
+</form>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var inputField = document.querySelector('input[name="phone_number"]');
+        var errorContainer = document.querySelector('.Input-errors');
+
+        inputField.addEventListener("input", function () {
+            var inputValue = inputField.value.trim();
+            var formattedValue = formatPhoneNumber(inputValue);
+            inputField.value = formattedValue;
+            // Удаляем все нецифровые символы и проверяем длину оставшейся строки
+            var digits = inputField.value.replace(/\D/g, '');
+            var russianPhoneNumberPattern = /^\+7\s?\(\d{3}\)\s?\d{3}-?\d{2}-?\d{2}$/;
+            if (digits.length !== 11 || !russianPhoneNumberPattern.test(inputField.value)) {
+                errorContainer.textContent = "Please enter a valid Russian phone number";
+            } else {
+                errorContainer.textContent = "";
+            }
+        });
+
+        function formatPhoneNumber(inputValue) {
+            var digits = inputValue.replace(/\D/g, ''); // Удаляем все нецифровые символы
+            var formattedValue = '+7';
+            if (digits.length > 1) {
+                formattedValue += ' (' + digits.slice(1, 4);
+            }
+            if (digits.length > 4) {
+                formattedValue += ') ' + digits.slice(4, 7);
+            }
+            if (digits.length > 7) {
+                formattedValue += '-' + digits.slice(7, 9);
+            }
+            if (digits.length > 9) {
+                formattedValue += '-' + digits.slice(9, 11);
+            }
+            return formattedValue;
+        }
+    });
+</script>
 </body>
 </html>

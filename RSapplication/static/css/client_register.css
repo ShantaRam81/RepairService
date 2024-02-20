@@ -1,0 +1,46 @@
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Стили для формы */
+form {
+    width: 300px;
+    max-width: 400px; /* Ширина формы */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    padding: 20px; /* Отступы вокруг содержимого формы */
+    border: 1px solid #ccc; /* Граница формы */
+    border-radius: 5px; /* Закругление углов формы */
+    background-color: #f9f9f9; /* Цвет фона формы */
+}
+
+/* Стили для текстовых полей и меток */
+.input-group {
+    margin-bottom: 20px; /* Отступ между группами элементов */
+}
+
+.input-group label {
+    display: block; /* Размещаем метку на отдельной строке */
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: calc(100% - 20px); /* Ширина поля ввода (вычисляемая, минус отступы) */
+    padding: 10px; /* Внутренние отступы текстовых полей */
+    border-radius: 500px; /* Закругление углов текстовых полей */
+    border: 0; /* Границы текстовых полей */
+    background-color: #242424;
+}
+
+/* Стили для кнопки */
+.button-center {
+    text-align: center; /* Выравнивание кнопки по центру */
+}
+
+
+
