@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
+from django.db.models import Sum
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -180,7 +181,13 @@ def repairman_orders(request):
     # Получаем список доступных услуг
     services = Services.objects.all()
 
-    # Передаем отфильтрованные заказы и список услуг в шаблон
-    return render(request, 'RSapplication/repairman_home.html', {'orders': orders, 'services': services})
+    # Создаем словарь для хранения заказов с общей стоимостью услуг
+    orders_with_total_cost = {}
+    for order in orders:
+        total_cost = ServiceList.objects.filter(repair_order=order).aggregate(total=Sum('service__coast'))['total']
+        orders_with_total_cost[order] = total_cost if total_cost else 0
+
+    # Передаем отфильтрованные заказы, список услуг и общую стоимость в шаблон
+    return render(request, 'RSapplication/repairman_home.html', {'orders': orders, 'services': services, 'orders_with_total_cost': orders_with_total_cost})
 
 

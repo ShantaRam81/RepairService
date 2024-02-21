@@ -11,6 +11,8 @@
     {% for order in orders %}
         <li>
             {{ order.request }} - {{ order.status }}
+            <!-- Добавлено отображение общей стоимости -->
+            <p>Общая стоимость услуг: {{ orders_with_total_cost[order] }}</p>
             <form method="post">
                 {% csrf_token %}
                 <input type="hidden" name="order_id" value="{{ order.id }}">
@@ -34,7 +36,6 @@
                 <button type="submit">Добавить услуги</button>
             </form>
         </li>
-        <!-- Добавьте здесь другие поля заказа для отображения -->
     {% endfor %}
 </ul>
 </body>

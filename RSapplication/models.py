@@ -71,8 +71,6 @@ class RepairRequest(models.Model):
                 f"{self.technic.brand}  {self.technic.model} | {self.description} | {self.created_time}")
 
 
-
-
 class RepairOrder(models.Model):
     request = models.ForeignKey(RepairRequest, on_delete=models.CASCADE, related_name='Заявка_на_ремонт', verbose_name='Request')
     repairman = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='Мастер', verbose_name='Repairman')
