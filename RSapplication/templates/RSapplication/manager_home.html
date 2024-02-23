@@ -9,8 +9,9 @@
 <ul>
     {% for request in all_requests %}
         <li>{{ request.description }}</li>
-        <li>{{ request.technic.model }}</li>
-        <li>{{ request.technic.brand }}</li>
+        <li>{{ request.technic.type }} {{ request.technic.model }} {{ request.technic.brand }}</li>
+        <li> {{ request.get_delivery_display }}</li>
+        <li>{{ request.created_time|date:"d F Y"  }}</li>
         <form method="post" action="{% url 'ManagerHomePage' %}">
             {% csrf_token %}
             <input type="hidden" name="request_id" value="{{ request.id }}">

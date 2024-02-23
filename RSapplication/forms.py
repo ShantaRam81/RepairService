@@ -61,7 +61,7 @@ class RepairRequestForm(forms.ModelForm):
     # Дополнительные поля для марки и модели техники
     class Meta:
         model = RepairRequest
-        fields = ['description']
+        fields = ['description', 'delivery']
 
 
 class TechnicForm(forms.ModelForm):

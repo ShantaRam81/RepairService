@@ -53,7 +53,7 @@ class Technic(models.Model):
         verbose_name_plural = 'Техника'
 
     def __str__(self):
-        return f"{self.brand} {self.model}"
+        return f"{self.type} | {self.brand} {self.model}"
 
 
 class RepairRequest(models.Model):
@@ -61,6 +61,15 @@ class RepairRequest(models.Model):
     technic = models.ForeignKey(Technic, on_delete=models.CASCADE, related_name='repair_requests', verbose_name='Техника клиента')
     description = models.TextField(max_length=300, verbose_name='Описание проблемы')
     created_time = models.DateTimeField(default=timezone.now, verbose_name='Дата/время создания')
+
+    delivery_choice = [
+        ('MYSELF', 'Привезу сам'),
+        ('DELIVERY', 'Служба доставки'),
+    ]
+
+    delivery = models.TextField(choices=delivery_choice, max_length=50,
+                                verbose_name='Способ доставки',
+                                default='MYSELF')
 
     class Meta:
         verbose_name = 'Заявка на обслуживание'

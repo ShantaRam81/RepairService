@@ -125,6 +125,30 @@ def create_repair_request(request):
                                                        'repair_requests': repair_requests})
 
 
+@login_required
+def edit_repair_request(request, request_id):
+    # Получаем объект заявки по ее ID
+    repair_request = get_object_or_404(RepairRequest, id=request_id)
+    technic = repair_request.technic
+
+    if request.method == 'POST':
+        repair_form = RepairRequestForm(request.POST, instance=repair_request)
+        technic_form = TechnicForm(request.POST, instance=technic)
+        if repair_form.is_valid() and technic_form.is_valid():
+            repair_form.save()
+            technic_form.save()
+            return redirect('HomePage')
+    else:
+        repair_form = RepairRequestForm(instance=repair_request)
+        technic_form = TechnicForm(instance=technic)
+
+    return render(request, 'RSapplication/edit_repair_request.html', {
+        'repair_form': repair_form,
+        'technic_form': technic_form
+    })
+
+
+@login_required()
 def manager_page(request):
     repairmen = CustomUser.objects.filter(position='repairman')
 

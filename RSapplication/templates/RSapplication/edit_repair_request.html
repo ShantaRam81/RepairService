@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать заявку на обслуживание</title>
+</head>
+<body>
+<h1>Редактировать заявку на обслуживание</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ repair_form.as_p }}
+    {{ technic_form.as_p }}
+    <button type="submit">Сохранить изменения</button>
+</form>
+</body>
+</html>
+
