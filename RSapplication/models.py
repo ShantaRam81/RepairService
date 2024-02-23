@@ -60,6 +60,7 @@ class RepairRequest(models.Model):
     owner = models.ForeignKey(CustomUser, on_delete=models.PROTECT, related_name='repair_requests', verbose_name='Владелец техники')
     technic = models.ForeignKey(Technic, on_delete=models.CASCADE, related_name='repair_requests', verbose_name='Техника клиента')
     description = models.TextField(max_length=300, verbose_name='Описание проблемы')
+    take_date = models.DateField(null=True, verbose_name='Дата приёма техники')
     created_time = models.DateTimeField(default=timezone.now, verbose_name='Дата/время создания')
 
     delivery_choice = [

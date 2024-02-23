@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление типами техники</title>
+</head>
+<body>
+<h1>Добавить новый тип</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Добавить</button>
+</form>
+
+<h1>Классификация техники</h1>
+<ul>
+    {% for type in types %}
+        <li>{{ type.name_type }}</li>
+        <form method="post" style="display: inline;">
+            {% csrf_token %}
+            <input type="hidden" name="delete_type" value="{{ type.id }}">
+            <button type="submit">Удалить</button>
+        </form>
+    {% endfor %}
+</ul>
+<a href="{% url 'ManagerHomePage' %}">Назад</a>
+</body>
+</html>

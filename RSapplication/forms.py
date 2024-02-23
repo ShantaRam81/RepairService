@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser, RepairRequest, Technic, RepairOrder
+from .models import CustomUser, RepairRequest, Technic, RepairOrder, Services, TechnicType
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -59,9 +59,16 @@ class ClientRegistrationForm(UserCreationForm):
 # ===============Форма заявки на обслуживание==============#
 class RepairRequestForm(forms.ModelForm):
     # Дополнительные поля для марки и модели техники
+
     class Meta:
         model = RepairRequest
-        fields = ['description', 'delivery']
+        fields = ['description', 'delivery', 'take_date']
+        widgets = {
+            'take_date': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date',
+            }),
+        }
 
 
 class TechnicForm(forms.ModelForm):
@@ -70,5 +77,33 @@ class TechnicForm(forms.ModelForm):
         fields = ['type', 'brand', 'model']
 
 
+class ServiceForm(forms.ModelForm):
+    class Meta:
+        model = Services
+        fields = ['name', 'service_description', 'coast']
+        widgets = {
+            "name": forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Наименование услуги'
+            }),
+            "service_description": forms.Textarea(attrs={
+                'class': 'form-control',
+                'placeholder': 'Описание услуги'
+            }),
+            "coast": forms.NumberInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Стоимость услуги'
+            }),
+        }
 
 
+class TechTypeForm(forms.ModelForm):
+    class Meta:
+        model = TechnicType
+        fields = ['name_type']
+        widgets = {
+            "name_type": forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Наименование'
+            }),
+        }

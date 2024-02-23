@@ -3,7 +3,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
 from django.db.models import Sum, Count
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm
+from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm, ServiceForm, TechTypeForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -110,6 +110,7 @@ def create_repair_request(request):
             repair_request.created_time = timezone.now()
             repair_request.technic = technic
             repair_request.save()
+
             return redirect('HomePage')
     else:
         technic_form = TechnicForm()
@@ -127,11 +128,14 @@ def create_repair_request(request):
 
 @login_required
 def edit_repair_request(request, request_id):
-    # Получаем объект заявки по ее ID
     repair_request = get_object_or_404(RepairRequest, id=request_id)
     technic = repair_request.technic
 
     if request.method == 'POST':
+        if 'delete' in request.POST:
+            repair_request.delete()
+            return redirect('HomePage')
+
         repair_form = RepairRequestForm(request.POST, instance=repair_request)
         technic_form = TechnicForm(request.POST, instance=technic)
         if repair_form.is_valid() and technic_form.is_valid():
@@ -144,7 +148,8 @@ def edit_repair_request(request, request_id):
 
     return render(request, 'RSapplication/edit_repair_request.html', {
         'repair_form': repair_form,
-        'technic_form': technic_form
+        'technic_form': technic_form,
+        'repair_request': repair_request
     })
 
 
@@ -171,6 +176,41 @@ def manager_page(request):
     all_requests = RepairRequest.objects.exclude(Заявка_на_ремонт__isnull=False)
 
     return render(request, 'RSapplication/manager_home.html', {'all_requests': all_requests, 'repairmen': repairmen})
+
+
+@login_required
+def add_service(request):
+    services = Services.objects.all()  # Определение переменной services за пределами блока условия
+
+    if request.method == 'POST':
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ServicePage')
+    else:
+        form = ServiceForm()
+
+    return render(request, 'RSapplication/service_actions.html', {'form': form, 'services': services})
+
+
+@login_required
+def add_tech_type(request):
+    types = TechnicType.objects.all()
+
+    if request.method == 'POST':
+        if 'add_type' in request.POST:  # Обработка добавления нового типа
+            form = TechTypeForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('TypesPage')
+        elif 'delete_type' in request.POST:  # Обработка удаления типа
+            type_id = request.POST.get('delete_type')
+            TechnicType.objects.filter(id=type_id).delete()
+            return redirect('TypesPage')
+    else:
+        form = TechTypeForm()
+
+    return render(request, 'RSapplication/technic_types.html', {'form': form, 'types': types})
 
 
 @login_required

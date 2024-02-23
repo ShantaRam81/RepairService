@@ -10,5 +10,7 @@ urlpatterns = [
     path('repair_request', create_repair_request, name='RepairRequier'),
     path('repair_request/<int:request_id>/edit/', edit_repair_request, name='edit_repair_request'),
     path('manager_home', manager_page, name='ManagerHomePage'),
+    path('service_actions/', add_service, name='ServicePage'),
+    path('technic_types_actions', add_tech_type, name='TypesPage'),
     path('repairman_home', repairman_orders, name='RepairmanHomePage')
 ]

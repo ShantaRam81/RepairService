@@ -1,29 +1,60 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Страница менеджера</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // При нажатии на кнопку "Техника принята"
+            $(".accept-request-btn").click(function () {
+                // Разблокировать форму выбора мастера
+                $(this).siblings(".order-form").find("select").prop("disabled", false);
+                // Показать кнопку "Создать заказ"
+                $(this).siblings(".order-form").find(".create-order-btn").show();
+                // Скрыть кнопку "Техника принята"
+                $(this).hide();
+            });
+        });
+    </script>
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/manager_home.css' %}">
 <body>
 <h1>Список заявок</h1>
 <ul>
     {% for request in all_requests %}
-        <li>{{ request.description }}</li>
-        <li>{{ request.technic.type }} {{ request.technic.model }} {{ request.technic.brand }}</li>
-        <li> {{ request.get_delivery_display }}</li>
-        <li>{{ request.created_time|date:"d F Y"  }}</li>
-        <form method="post" action="{% url 'ManagerHomePage' %}">
-            {% csrf_token %}
-            <input type="hidden" name="request_id" value="{{ request.id }}">
-            <select name="repairman">
-                {% for repairman in repairmen %}
-                    <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
-                {% endfor %}
-            </select>
-            <button type="submit" name="action" value="create_order">Создать заказ</button>
-        </form>
-    {% endfor %}
-</ul>
+        <div class = 'request-info'>
+            <li>{{ request.description }}</li>
+            <li>{{ request.technic.type }} {{ request.technic.model }} {{ request.technic.brand }}</li>
+            <li>{{ request.get_delivery_display }}</li>
+            <li>{{ request.created_time|date:"d F Y" }}</li>
+            <li>{{ request.take_date|date:"d F Y" }}</li>
 
+            <button class="accept-request-btn">Техника принята</button>
+            <form class="order-form" method="post" action="{% url 'ManagerHomePage' %}">
+                {% csrf_token %}
+                <input type="hidden" name="request_id" value="{{ request.id }}">
+                <select name="repairman" disabled>
+                    {% for repairman in repairmen %}
+                        <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="create-order-btn" name="action" value="create_order" style="display: none;">
+                    Создать заказ
+                </button>
+            </form>
+        </div>
+
+
+
+    {% endfor %}
+    <a href="{% url 'ServicePage' %}">Работа с услугами</a>
+    <a href="{% url 'TypesPage' %}">Работа с классификацией техники</a>
+</ul>
 </body>
 </html>

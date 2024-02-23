@@ -1,24 +1,61 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Создать заявку на обслуживание</title>
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <body>
 <h1>Welcome to Home Page</h1>
-<h2>Your Repair Requests:</h2>
-<ul>
-    {% for repair_request in repair_requests %}
-        <li>{{ repair_request.description }} - {{ repair_request.created_time }}</li>
-        <a href="{% url 'edit_repair_request' repair_request.id %}">Edit</a>
-    {% endfor %}
-</ul>
-<form method="post">
-    {% csrf_token %}
-    {{ technic_form.as_p }}
-    {{ repair_form.as_p }}
-    <button type="submit">Создать заявку</button>
-</form>
+
+<div class='reqeust_duo'>
+    <ul class="request-list">
+    <h2>Ваши заявки:</h2>
+        {% for repair_request in repair_requests %}
+            <div class='one_request'>
+                <li>{{ repair_request.description }} </li>
+                <li>  {{ repair_request.created_time|date:"d.m.Y"  }}</li>
+                <a href="{% url 'edit_repair_request' repair_request.id %}"><i class='bx bxs-edit-alt'></i></a>
+            </div>
+
+        {% endfor %}
+    </ul>
+    <form class='create_request' method="post">
+        {% csrf_token %}
+        <div class="input-group custom-select">
+            <label for="type">Тип техники</label>
+            {{ technic_form.type }}
+        </div>
+        <div class="input-group">
+            <label for="brand">Брэнд техники</label>
+            {{ technic_form.brand }}
+        </div>
+        <div class="input-group">
+            <label for="model">Модель</label>
+            {{ technic_form.model }}
+        </div>
+        <div class="input-group">
+            <label for="description">Доп. информация</label>
+            {{ repair_form.description }}
+        </div>
+        <div class="input-group custom-select">
+            <label for="delivery">Способ доставки</label>
+            {{ repair_form.delivery }}
+        </div>
+        <div class="input-group">
+            <label for="take_date">Дата приёма техники</label>
+            {{ repair_form.take_date }}
+        </div>
+        <button type="submit">Создать заявку</button>
+    </form>
+</div>
+
 <!-- Кнопка для выхода -->
 <form action="{% url 'LogoutUser' %}" method="post">
     {% csrf_token %}

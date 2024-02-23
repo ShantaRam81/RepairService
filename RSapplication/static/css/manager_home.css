@@ -1,0 +1,16 @@
+body{
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+
+.request-info{
+    background-color: coral;
+    padding: 10px;
+    border-radius: 20px;
+    margin: 20px;
+    max-width: 500px;
+}
+
+li{
+    list-style: none;
+}
