@@ -1,42 +1,78 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои заказы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/repairman_home.css' %}">
 </head>
 <body>
 <h1>Мои заказы</h1>
 <ul>
     {% for order in orders %}
-        <li>
+        <li class='order_list'>
             {{ order.request }} - {{ order.status }}
-            <!-- Добавлено отображение общей стоимости -->
-            <p>Общая стоимость услуг: {{ orders_with_total_cost[order] }}</p>
+            <ul>
+                {% for item in orders_with_services %}
+                    {% if item.repair_order_id == order.id %}
+                        {% for service in services %}
+                            {% if service.id == item.service_id %}
+                                <li>{{ service.name }} - {{ service.coast }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
             <form method="post">
                 {% csrf_token %}
                 <input type="hidden" name="order_id" value="{{ order.id }}">
                 <select name="status">
-                    <option value="в работе">Принят</option>
-                    <option value="завершен">В работе</option>
-                    <option value="отменен">Отменен</option>
-                    <option value="отменен">Завершен</option>
+                    <option value="Принят в работу">Принят в работу</option>
+                    <option value="В работе">В работе</option>
+                    <option value="Отменен">Отменен</option>
+                    <option value="Завершен">Завершен</option>
                 </select>
                 <button type="submit">Изменить статус</button>
 
                 <h3>Выберите услуги:</h3>
                 <ul>
-                    {% for service in services %}
-                        <li>
-                            <input type="checkbox" name="selected_services" value="{{ service.id }}">
-                            {{ service.name }} - {{ service.coast }}
-                        </li>
+
+                    {% for key, value in order_spec2.items %}
+                        {% if key == order %}
+                            {% if value %}
+                                {% for item in value %}
+                                    {% for service in services %}
+                                        {% if item == service %}
+
+                                            <li>
+                                                <input type="checkbox" name="selected_services"
+                                                       value="{{ item.id }}">
+                                                {{ item.name }} - {{ item.coast }}
+                                            </li>
+
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endfor %}
+
+
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
+
+
                 </ul>
                 <button type="submit">Добавить услуги</button>
             </form>
         </li>
     {% endfor %}
 </ul>
+<script>
+
+</script>
 </body>
 </html>

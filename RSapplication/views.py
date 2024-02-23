@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm
 from django.contrib.auth.forms import AuthenticationForm
@@ -175,19 +175,28 @@ def repairman_orders(request):
         # После успешного обновления статуса перенаправляем пользователя
         return redirect('RepairmanHomePage')
 
+    # Получаем список всех доступных услуг
+    services = Services.objects.all()
+
     # Фильтруем заказы по полю repairman для текущего пользователя
     orders = RepairOrder.objects.filter(repairman=current_user)
 
-    # Получаем список доступных услуг
-    services = Services.objects.all()
+    # Создаем словарь, в котором каждому заказу соответствуют его услуги
+    orders_with_services = ServiceList.objects.all()
 
-    # Создаем словарь для хранения заказов с общей стоимостью услуг
-    orders_with_total_cost = {}
+    order_spec2 = {}
+
     for order in orders:
-        total_cost = ServiceList.objects.filter(repair_order=order).aggregate(total=Sum('service__coast'))['total']
-        orders_with_total_cost[order] = total_cost if total_cost else 0
+        order_spec2[order] = []
+        service_lists = ServiceList.objects.filter(repair_order=order)
+        # Создаем список, содержащий услуги для данного заказа
+        services_for_order = [service_list.service for service_list in service_lists]
+        for service in services:
+            if service not in services_for_order:
+                order_spec2[order].append(service)
 
-    # Передаем отфильтрованные заказы, список услуг и общую стоимость в шаблон
-    return render(request, 'RSapplication/repairman_home.html', {'orders': orders, 'services': services, 'orders_with_total_cost': orders_with_total_cost})
-
-
+    # Передаем список доступных услуг, заказы и словарь с услугами для каждого заказа в шаблон
+    return render(request, 'RSapplication/repairman_home.html', {'orders': orders,
+                                                                 'services': services,
+                                                                 'orders_with_services': orders_with_services,
+                                                                 'order_spec2': order_spec2})

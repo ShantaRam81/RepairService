@@ -103,7 +103,7 @@ class Services(models.Model):
 
 
 class ServiceList(models.Model):
-    repair_order = models.ForeignKey(RepairOrder, null=True, blank=True, on_delete=models.CASCADE, related_name='service_lists')
+    repair_order = models.ForeignKey(RepairOrder, null=True, blank=True, on_delete=models.PROTECT, related_name='service_lists')
     service = models.ForeignKey(Services, on_delete=models.PROTECT)
 
     class Meta:

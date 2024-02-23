@@ -1,0 +1,8 @@
+.order_list{
+    border-radius: 15px;
+    background-color: coral;
+    padding: 20px;
+    list-style: none;
+    margin: 10px;
+    width: 700px;
+}
