@@ -7,9 +7,10 @@
 </head>
 <body>
 <h1>Добавить новый тип</h1>
-<form method="post">
+<form method="post" name="add_type">
     {% csrf_token %}
     {{ form.as_p }}
+    <input type="hidden" name="add_type" value="1">
     <button type="submit">Добавить</button>
 </form>
 
@@ -17,7 +18,7 @@
 <ul>
     {% for type in types %}
         <li>{{ type.name_type }}</li>
-        <form method="post" style="display: inline;">
+        <form method="post" style="display: inline;" >
             {% csrf_token %}
             <input type="hidden" name="delete_type" value="{{ type.id }}">
             <button type="submit">Удалить</button>

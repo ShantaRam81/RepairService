@@ -12,22 +12,43 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <body>
-<h1>Welcome to Home Page</h1>
+<div class="head-info">
+    <h1>Приветсвую, {{ current_user.username }}!</h1>
+    <form action="{% url 'LogoutUser' %}" method="post">
+        {% csrf_token %}
+        <button class="logout" type="submit">
+            <i class='bx bxs-log-out-circle' style="vertical-align: middle;"></i>
+        </button>
+    </form>
+</div>
 
 <div class='reqeust_duo'>
-    <ul class="request-list">
-    <h2>Ваши заявки:</h2>
-        {% for repair_request in repair_requests %}
-            <div class='one_request'>
-                <li>{{ repair_request.description }} </li>
-                <li>  {{ repair_request.created_time|date:"d.m.Y"  }}</li>
-                <a href="{% url 'edit_repair_request' repair_request.id %}"><i class='bx bxs-edit-alt'></i></a>
-            </div>
+    <div class="one_column">
+        <ul class="request-list">
+            <h2>Ваши заявки:</h2>
+            {% for repair_request in repair_requests %}
+                <div class='one_request'>
+                    <strong>
+                        <li>{{ repair_request.technic.type }} {{ repair_request.technic.brand }} </li>
+                    </strong>
+                    <div class="date-edit">
+                        <li>  {{ repair_request.created_time|date:"d.m.Y" }}</li>
+                        <a href="{% url 'edit_repair_request' repair_request.id %}"><i class='bx bxs-edit-alt'></i></a>
+                    </div>
 
-        {% endfor %}
-    </ul>
+                </div>
+
+            {% endfor %}
+        </ul>
+        <div class="order_list">
+            <h2>Ваши заказы:</h2>
+        </div>
+
+    </div>
+
     <form class='create_request' method="post">
         {% csrf_token %}
+        <h2>Создать новую заявку</h2>
         <div class="input-group custom-select">
             <label for="type">Тип техники</label>
             {{ technic_form.type }}
@@ -52,14 +73,14 @@
             <label for="take_date">Дата приёма техники</label>
             {{ repair_form.take_date }}
         </div>
-        <button type="submit">Создать заявку</button>
+        <div class="button-center">
+            <button class="create_button" type="submit">Создать заявку</button>
+        </div>
+
     </form>
 </div>
 
 <!-- Кнопка для выхода -->
-<form action="{% url 'LogoutUser' %}" method="post">
-    {% csrf_token %}
-    <button type="submit">Выход</button>
-</form>
+
 </body>
 </html>

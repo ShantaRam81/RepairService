@@ -123,7 +123,8 @@ def create_repair_request(request):
 
     return render(request, 'RSapplication/home.html', {'technic_form': technic_form,
                                                        'repair_form': repair_form,
-                                                       'repair_requests': repair_requests})
+                                                       'repair_requests': repair_requests,
+                                                       'current_user':current_user})
 
 
 @login_required
@@ -196,19 +197,21 @@ def add_service(request):
 @login_required
 def add_tech_type(request):
     types = TechnicType.objects.all()
+    form = TechTypeForm()
 
     if request.method == 'POST':
-        if 'add_type' in request.POST:  # Обработка добавления нового типа
+        if 'add_type' in request.POST:
             form = TechTypeForm(request.POST)
             if form.is_valid():
+                print("Форма действительна. Данные:", form.cleaned_data)
                 form.save()
                 return redirect('TypesPage')
-        elif 'delete_type' in request.POST:  # Обработка удаления типа
+            else:
+                print("Форма недействительна. Ошибки:", form.errors)
+        elif 'delete_type' in request.POST:
             type_id = request.POST.get('delete_type')
             TechnicType.objects.filter(id=type_id).delete()
             return redirect('TypesPage')
-    else:
-        form = TechTypeForm()
 
     return render(request, 'RSapplication/technic_types.html', {'form': form, 'types': types})
 
