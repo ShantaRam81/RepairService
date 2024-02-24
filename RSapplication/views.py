@@ -3,13 +3,16 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
 from django.db.models import Sum, Count
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+
 from .forms import ClientRegistrationForm, RepairRequestForm, TechnicForm, ServiceForm, TechTypeForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic import FormView, TemplateView
 from .models import *
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, JsonResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -119,12 +122,26 @@ def create_repair_request(request):
     # Вывод списка заявок конкретного клиента
     current_user = request.user
     repair_requests = RepairRequest.objects.filter(owner=current_user)
+    done_orders = RepairOrder.objects.filter(request__owner=current_user)
     print(repair_requests)
 
     return render(request, 'RSapplication/home.html', {'technic_form': technic_form,
                                                        'repair_form': repair_form,
                                                        'repair_requests': repair_requests,
-                                                       'current_user':current_user})
+                                                       'current_user': current_user,
+                                                       'done_orders': done_orders})
+
+
+def pay_order(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+
+        order = RepairOrder.objects.get(id=order_id)
+        order.is_paid = True  # Необходимо изменить на is_paid
+        order.save()
+        return JsonResponse({'message': 'Заказ успешно оплачен'})
+    else:
+        return JsonResponse({'error': 'Метод не поддерживается'}, status=405)
 
 
 @login_required
@@ -158,22 +175,32 @@ def edit_repair_request(request, request_id):
 def manager_page(request):
     repairmen = CustomUser.objects.filter(position='repairman')
 
-    if request.method == 'POST' and 'action' in request.POST:
-        if request.POST['action'] == 'create_order':
-            try:
-                request_id = int(request.POST.get('request_id'))
-                repairman_id = int(request.POST.get('repairman'))
-                request_object = RepairRequest.objects.get(id=request_id)
-                repairman = CustomUser.objects.get(id=repairman_id)
-                RepairOrder.objects.create(request=request_object, repairman=repairman, status='Передан в работу')
-                # Записываем ID созданного заказа
-                created_order_id = RepairOrder.objects.latest('id').id
-                return HttpResponseRedirect(request.path_info)
-            except (ValueError, RepairRequest.DoesNotExist, CustomUser.DoesNotExist) as e:
-                print("Ошибка при создании заказа:", e)
-                return HttpResponseBadRequest("Ошибка при создании заказа.")
+    if request.method == 'POST':
+        if 'action' in request.POST:
+            if request.POST['action'] == 'create_order':
+                try:
+                    request_id = int(request.POST.get('request_id'))
+                    repairman_id = int(request.POST.get('repairman'))
+                    request_object = RepairRequest.objects.get(id=request_id)
+                    repairman = CustomUser.objects.get(id=repairman_id)
+                    RepairOrder.objects.create(request=request_object, repairman=repairman, status='Передан в работу')
+                    created_order_id = RepairOrder.objects.latest('id').id
+                    return HttpResponseRedirect(request.path_info)
+                except (ValueError, RepairRequest.DoesNotExist, CustomUser.DoesNotExist) as e:
+                    print("Ошибка при создании заказа:", e)
+                    return HttpResponseBadRequest("Ошибка при создании заказа.")
+            elif request.POST['action'] == 'accept_request':
+                try:
+                    request_id = int(request.POST.get('request_id'))
+                    repair_request = RepairRequest.objects.get(id=request_id)
+                    repair_request.technic_accepted = True
+                    repair_request.save()
+                    return redirect('ManagerHomePage')
+                except (ValueError, RepairRequest.DoesNotExist) as e:
+                    print("Ошибка при подтверждении заявки:", e)
+                    return HttpResponseBadRequest("Ошибка при подтверждении заявки.")
 
-    # Получаем заявки, у которых нет соответствующих заказов
+    # Получаем только заявки, которые еще не имеют соответствующих заказов
     all_requests = RepairRequest.objects.exclude(Заявка_на_ремонт__isnull=False)
 
     return render(request, 'RSapplication/manager_home.html', {'all_requests': all_requests, 'repairmen': repairmen})

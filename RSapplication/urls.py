@@ -12,5 +12,6 @@ urlpatterns = [
     path('manager_home', manager_page, name='ManagerHomePage'),
     path('service_actions/', add_service, name='ServicePage'),
     path('technic_types_actions', add_tech_type, name='TypesPage'),
-    path('repairman_home', repairman_orders, name='RepairmanHomePage')
+    path('repairman_home', repairman_orders, name='RepairmanHomePage'),
+    path('pay_order', pay_order, name='PayOrder'),
 ]

@@ -11,13 +11,26 @@
       rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+   body{
+    font-family: 'Nunito Sans', sans-serif;
+    background:url("{% static 'image/background.jpg' %}");
+
+    padding: 20px;
+   background-size: cover;
+
+}
+</style>
+
 <body>
+
 <div class="head-info">
     <h1>Приветсвую, {{ current_user.username }}!</h1>
-    <form action="{% url 'LogoutUser' %}" method="post">
+    <form class='logout_form' action="{% url 'LogoutUser' %}" method="post">
         {% csrf_token %}
         <button class="logout" type="submit">
-            <i class='bx bxs-log-out-circle' style="vertical-align: middle;"></i>
+            <i class='bx bx-log-out-circle' style="vertical-align: middle;">
+                <span class="tooltiptext">Выйти</span></i>
         </button>
     </form>
 </div>
@@ -28,20 +41,79 @@
             <h2>Ваши заявки:</h2>
             {% for repair_request in repair_requests %}
                 <div class='one_request'>
-                    <strong>
-                        <li>{{ repair_request.technic.type }} {{ repair_request.technic.brand }} </li>
-                    </strong>
-                    <div class="date-edit">
-                        <li>  {{ repair_request.created_time|date:"d.m.Y" }}</li>
-                        <a href="{% url 'edit_repair_request' repair_request.id %}"><i class='bx bxs-edit-alt'></i></a>
-                    </div>
+                    <div class='one_request_tech'>
+                        <div class='tecnic_info'>
+                            <i class='bx bxs-info-circle'>
+                            <span class="tooltiptext">
+                                {{ repair_request.description }}. <br> <br> Не забудьте привезти технику {{ repair_request.take_date }}</span></i>
+                            <strong>
+                                <li>{{ repair_request.technic.type }} {{ repair_request.technic.brand }} {{ repair_request.technic.model }}</li>
+                            </strong>
+                        </div>
 
+                        <div class="date-edit">
+                            <li>  {{ repair_request.created_time|date:"d.m.Y" }}</li>
+                            <a href="{% url 'edit_repair_request' repair_request.id %}"><i class='bx bxs-edit-alt'></i></a>
+                        </div>
+
+                    </div>
+                    {% if repair_request.technic_accepted == True %}
+                        <div class='one_request_status'>
+                            <i class='bx bxs-circle green-circle'><span class="tooltiptext">Техника принята!</span></i>
+                        </div>
+                    {% else %}
+                        <div class='one_request_status'>
+                            <i class='bx bxs-circle yellow-circle'><span
+                                    class="tooltiptext">Ожидается техника!</span></i>
+                        </div>
+                    {% endif %}
                 </div>
+
 
             {% endfor %}
         </ul>
         <div class="order_list">
             <h2>Ваши заказы:</h2>
+            {% for done_order in done_orders %}
+                {% if done_order.status == 'Завершен' and done_order.is_paid == False  %}
+                    <div class="order_info_pay">
+                        <div class='order_info'>
+                            <strong>
+                                <li>{{ done_order.repairman.firstname }} {{ done_order.repairman.lastname }}</li>
+                            </strong>
+                        </div>
+                        <button class="pay_order" data-order-id="{{ done_order.id }}">
+                            <i class='bx bxs-credit-card'></i>
+                        </button>
+                        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                        <script>
+                            $(document).ready(function () {
+                                $(".pay_order").off('click').on('click', function () {
+                                    var orderId = $(this).data("order-id");
+                                    $.ajax({
+                                        url: "{% url 'PayOrder' %}",
+                                        method: "POST",
+                                        data: {
+                                            order_id: orderId,
+                                            csrfmiddlewaretoken: "{{ csrf_token }}"
+                                        },
+                                        success: function (response) {
+                                            // Обработка успешного ответа
+                                            console.log(response);
+                                        },
+                                        error: function (xhr, errmsg, err) {
+                                            // Обработка ошибки
+                                            console.log(xhr.status + ": " + xhr.responseText);
+                                        }
+                                    });
+                                });
+                            });
+                        </script>
+                    </div>
+
+                {% endif %}
+            {% endfor %}
+
         </div>
 
     </div>
@@ -76,11 +148,8 @@
         <div class="button-center">
             <button class="create_button" type="submit">Создать заявку</button>
         </div>
-
     </form>
 </div>
-
-<!-- Кнопка для выхода -->
 
 </body>
 </html>

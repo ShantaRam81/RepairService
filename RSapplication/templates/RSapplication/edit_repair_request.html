@@ -1,18 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Редактировать заявку на обслуживание</title>
 </head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/edit_repair_request.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <body>
-<h1>Редактировать заявку на обслуживание</h1>
-<form method="post">
+<h1>Редактирование заявки</h1>
+<form class='edit_request' method="post">
     {% csrf_token %}
-    {{ repair_form.as_p }}
-    {{ technic_form.as_p }}
-    <button type="submit">Сохранить изменения</button>
-    <button type="submit" name="delete">Удалить заявку</button>
-    <a href="{% url 'HomePage' %}">Назад</a>
+    <div class="input-group custom-select">
+        <label for="type">Тип техники</label>
+        {{ technic_form.type }}
+    </div>
+    <div class="input-group">
+        <label for="brand">Брэнд техники</label>
+        {{ technic_form.brand }}
+    </div>
+    <div class="input-group">
+        <label for="model">Модель</label>
+        {{ technic_form.model }}
+    </div>
+    <div class="input-group">
+        <label for="description">Доп. информация</label>
+        {{ repair_form.description }}
+    </div>
+    <div class="input-group custom-select">
+        <label for="delivery">Способ доставки</label>
+        {{ repair_form.delivery }}
+    </div>
+    <div class="input-group">
+        <label for="take_date">Дата приёма техники</label>
+        {{ repair_form.take_date }}
+    </div>
+    <div class="edit_del_button">
+        <button class='edit_button' type="submit">Сохранить изменения</button>
+        <button class='delete_button' type="submit" name="delete"><i class='bx bx-trash' ></i></button>
+    </div>
 </form>
+<a class ='back_arrow' href="{% url 'HomePage' %}"><i class='bx bx-arrow-back'></i></a>
 </body>
 </html>

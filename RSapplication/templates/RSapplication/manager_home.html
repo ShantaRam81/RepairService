@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Страница менеджера</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            // При нажатии на кнопку "Техника принята"
-            $(".accept-request-btn").click(function () {
-                // Разблокировать форму выбора мастера
-                $(this).siblings(".order-form").find("select").prop("disabled", false);
-                // Показать кнопку "Создать заказ"
-                $(this).siblings(".order-form").find(".create-order-btn").show();
-                // Скрыть кнопку "Техника принята"
-                $(this).hide();
-            });
-        });
-    </script>
+    {#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            // При нажатии на кнопку "Техника принята"#}
+    {#            $(".accept-request-btn").click(function () {#}
+    {#                // Разблокировать форму выбора мастера#}
+    {#                $(this).siblings(".order-form").find("select").prop("disabled", false);#}
+    {#                // Показать кнопку "Создать заказ"#}
+    {#                $(this).siblings(".order-form").find(".create-order-btn").show();#}
+    {#                // Скрыть кнопку "Техника принята"#}
+    {#                $(this).hide();#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
 </head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,25 +28,36 @@
 <h1>Список заявок</h1>
 <ul>
     {% for request in all_requests %}
-        <div class = 'request-info'>
+        <div class='request-info'>
             <li>{{ request.description }}</li>
             <li>{{ request.technic.type }} {{ request.technic.model }} {{ request.technic.brand }}</li>
             <li>{{ request.get_delivery_display }}</li>
             <li>{{ request.created_time|date:"d F Y" }}</li>
             <li>{{ request.take_date|date:"d F Y" }}</li>
 
-            <button class="accept-request-btn">Техника принята</button>
+            <form method="post" class="accept-request-form">
+                {% csrf_token %}
+                {% if request.technic_accepted == False %}
+                    <input type="hidden" name="action" value="accept_request">
+                    <input type="hidden" name="request_id" value="{{ request.id }}">
+                    <button class="accept-request-btn" type="submit">Техника принята</button>
+                {% endif %}
+            </form>
             <form class="order-form" method="post" action="{% url 'ManagerHomePage' %}">
                 {% csrf_token %}
-                <input type="hidden" name="request_id" value="{{ request.id }}">
-                <select name="repairman" disabled>
-                    {% for repairman in repairmen %}
-                        <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
-                    {% endfor %}
-                </select>
-                <button type="submit" class="create-order-btn" name="action" value="create_order" style="display: none;">
-                    Создать заказ
-                </button>
+                {% if request.technic_accepted == True %}
+                    <input type="hidden" name="request_id" value="{{ request.id }}">
+                    <select name="repairman">
+                        {% for repairman in repairmen %}
+                            <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" class="create-order-btn" name="action" value="create_order">
+                        Создать заказ
+                    </button>
+                {% else %}
+                    <h1>Техника не принята</h1>
+                {% endif %}
             </form>
         </div>
 

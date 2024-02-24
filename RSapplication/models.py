@@ -62,6 +62,7 @@ class RepairRequest(models.Model):
     description = models.TextField(max_length=300, verbose_name='Описание проблемы')
     take_date = models.DateField(null=True, verbose_name='Дата приёма техники')
     created_time = models.DateTimeField(default=timezone.now, verbose_name='Дата/время создания')
+    technic_accepted = models.BooleanField(default=False, verbose_name='Статус принятия техники')
 
     delivery_choice = [
         ('MYSELF', 'Привезу сам'),
@@ -87,6 +88,8 @@ class RepairOrder(models.Model):
     status = models.CharField(max_length=20, null=True)
     created_time = models.DateTimeField(default=timezone.now, null=True, verbose_name='Order created time')
     end_time = models.DateTimeField(default=timezone.now, null=True, verbose_name='End time')
+    final_coast = models.CharField(default=0, max_length=6, verbose_name='Окончательная стоимость')
+    is_paid = models.BooleanField(default=False, verbose_name='Статус оплаты')
 
     class Meta:
         verbose_name = 'Заказ на обслуживание'

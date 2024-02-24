@@ -15,6 +15,7 @@
 <h1>Мои заказы</h1>
 <ul>
     {% for order in orders %}
+        {% if order.status != 'Завершен' %}
         <li class='order_list'>
             {{ order.request }} - {{ order.status }}
             <ul>
@@ -35,7 +36,6 @@
                     <option value="Принят в работу">Принят в работу</option>
                     <option value="В работе">В работе</option>
                     <option value="Отменен">Отменен</option>
-                    <option value="Завершен">Завершен</option>
                 </select>
                 <button type="submit">Изменить статус</button>
 
@@ -68,7 +68,15 @@
                 </ul>
                 <button type="submit">Добавить услуги</button>
             </form>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+                <input type="hidden" name="status" value="Завершен">
+                <button type="submit">Завершить заказ</button>
+            </form>
+
         </li>
+        {% endif %}
     {% endfor %}
 </ul>
 <script>
