@@ -254,7 +254,7 @@ def repairman_orders(request):
         new_status = request.POST.get('status')
 
         # Получаем объект заказа или возвращаем ошибку 404, если его нет
-        order = get_object_or_404(RepairOrder, id=order_id)
+        order = RepairOrder.objects.get(id=order_id)
 
         # Обновляем статус заказа и сохраняем его
         order.status = new_status
@@ -266,8 +266,9 @@ def repairman_orders(request):
             service = Services.objects.get(id=service_id)
             ServiceList.objects.create(service=service, repair_order=order)
 
-        # После успешного обновления статуса перенаправляем пользователя
+            # После успешного обновления статуса перенаправляем пользователя
         return redirect('RepairmanHomePage')
+        # После успешного обновления статуса перенаправляем пользователя
 
     # Получаем список всех доступных услуг
     services = Services.objects.all()
@@ -288,10 +289,6 @@ def repairman_orders(request):
         for service in services:
             if service not in services_for_order:
                 order_spec2[order].append(service)
-        if request.POST.get("action") == 'complete_work':
-            total_coast = order.servicelist_set.aggregate(total=Sum('coast'))['total']
-            if total_coast is not None:
-                order.final_coast = total_coast
 
     # Передаем список доступных услуг, заказы и словарь с услугами для каждого заказа в шаблон
     return render(request, 'RSapplication/repairman_home.html', {'orders': orders,
