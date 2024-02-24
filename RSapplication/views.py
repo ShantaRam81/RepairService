@@ -288,6 +288,10 @@ def repairman_orders(request):
         for service in services:
             if service not in services_for_order:
                 order_spec2[order].append(service)
+        if request.POST.get("action") == 'complete_work':
+            total_coast = order.servicelist_set.aggregate(total=Sum('coast'))['total']
+            if total_coast is not None:
+                order.final_coast = total_coast
 
     # Передаем список доступных услуг, заказы и словарь с услугами для каждого заказа в шаблон
     return render(request, 'RSapplication/repairman_home.html', {'orders': orders,
