@@ -80,7 +80,12 @@
                     <div class="order_info_pay">
                         <div class='order_info'>
                             <strong>
-                                <li>{{ done_order.repairman.firstname }} {{ done_order.repairman.lastname }}</li>
+                                <li>
+                                    {{ done_order.repairman.firstname }}
+                                    {{ done_order.repairman.lastname }}
+                                    {{ done_order.final_coast }}
+                                    {{ done_order.end_time }}
+                                </li>
                             </strong>
                         </div>
                         <button class="pay_order" data-order-id="{{ done_order.id }}">
@@ -101,6 +106,7 @@
                                         success: function (response) {
                                             // Обработка успешного ответа
                                             console.log(response);
+                                            location.reload();
                                         },
                                         error: function (xhr, errmsg, err) {
                                             // Обработка ошибки

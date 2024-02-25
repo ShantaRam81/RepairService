@@ -66,11 +66,11 @@
                 </ul>
                 <button type="submit">Добавить услуги</button>
             </form>
-            <form method="post">
+            <form action="{% url 'update_order_coast' order.id %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="order_id" value="{{ order.id }}">
                 <input type="hidden" name="status" value="Завершен">
-                <button type="submit" value ='complete_work'>Завершить заказ</button>
+                <button type="submit" name="action" value="complete_work">Завершить работу</button>
             </form>
 
         </li>

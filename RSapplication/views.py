@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
@@ -12,7 +14,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic import FormView, TemplateView
 from .models import *
-from django.http import HttpResponseBadRequest, JsonResponse
+from django.http import HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
@@ -125,13 +127,19 @@ def create_repair_request(request):
 
     # Вывод списка заявок конкретного клиента
     current_user = request.user
-    # print(current_user)
-    # orders_in_proccess = RepairOrder.objects.filter(Q(status='Принято в работу') | Q(status='В работе')
-    #                                                 & Q(request__owner=current_user))
-    # related_repair_requests = [order.request for order in orders_in_proccess]
-    # print(related_repair_requests)
 
-    repair_requests = RepairRequest.objects.filter(owner=current_user)
+    #repair_requests = RepairRequest.objects.filter(owner=current_user)
+
+    orders = RepairOrder.objects.filter(status="Завершен")
+
+    # Получаем список ID repair_requests, связанных с найденными заказами
+    repair_request_ids = [order.request_id for order in orders]
+
+    # Фильтруем repair_requests по ID
+    #repair_requests = RepairRequest.objects.filter(owner=current_user, id__in=repair_request_ids)
+
+    repair_requests = RepairRequest.objects.filter(owner=current_user).exclude(id__in=repair_request_ids)
+
     done_orders = RepairOrder.objects.filter(request__owner=current_user)
 
     return render(request, 'RSapplication/home.html', {'technic_form': technic_form,
@@ -304,3 +312,23 @@ def repairman_orders(request):
                                                                  'services': services,
                                                                  'orders_with_services': orders_with_services,
                                                                  'order_spec2': order_spec2})
+
+
+@login_required
+def update_order_coast(request, order_id):
+    if request.method == 'POST':
+        order = RepairOrder.objects.get(id=order_id)
+        services = ServiceList.objects.filter(repair_order=order)
+
+        total_cost = 0
+        for service_item in services:
+            total_cost += float(service_item.service.coast)
+
+        order.final_coast = total_cost
+        order.status = 'Завершен'
+        order.end_time = datetime.now()
+        order.save()
+
+        return redirect('RepairmanHomePage')
+    else:
+        return HttpResponse('Method Not Allowed', status=405)
