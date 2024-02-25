@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<body>
+<div class="profile">
+
+        <div class="profile-info">
+
+            <p><strong>Имя:</strong> {{ current_user.firstname }}
+            <p><strong>Фамилия:</strong> {{ current_user.lastname }}
+            <p><strong>Эл. почта:</strong> {{ current_user.email }}
+            <p><strong>Номер телефона:</strong> {{ current_user.phone_number }}
+
+        </div>
+        <div class="profile-photo">
+            <h1>Ваша техника:</h1>
+            {% for repair_request in repair_requests %}
+                <div class='user_technic_info'>
+                    {{ repair_request.technic.type.name_type }} {{ repair_request.technic.brand }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

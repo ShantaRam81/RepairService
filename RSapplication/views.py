@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Q
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -21,6 +21,10 @@ from django.contrib.auth.hashers import make_password
 
 def main_page(request):
     return render(request, 'RSapplication/main_page.html')
+
+
+def profile_page(request):
+    return render(request, 'RSapplication/profile.html')
 
 
 def registration(request):
@@ -121,9 +125,14 @@ def create_repair_request(request):
 
     # Вывод списка заявок конкретного клиента
     current_user = request.user
+    # print(current_user)
+    # orders_in_proccess = RepairOrder.objects.filter(Q(status='Принято в работу') | Q(status='В работе')
+    #                                                 & Q(request__owner=current_user))
+    # related_repair_requests = [order.request for order in orders_in_proccess]
+    # print(related_repair_requests)
+
     repair_requests = RepairRequest.objects.filter(owner=current_user)
     done_orders = RepairOrder.objects.filter(request__owner=current_user)
-    print(repair_requests)
 
     return render(request, 'RSapplication/home.html', {'technic_form': technic_form,
                                                        'repair_form': repair_form,

@@ -50,54 +50,34 @@ h1{
 }
 .main-duo{
     display: flex;
-    justify-content: space-between;
 }
-.profile {
-    width: 300px;
-    max-width: 500px;
-    margin-left: 100px;
-    padding: 35px;
+.other_buttons{
+    padding: 20px;
     border-radius: 25px;
     background-color: #121212;
     box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
     border: #454545 1px solid;
+    margin-left:20px;
+    height: fit-content;
 }
-.profile-photo{
-    height: 200px;
-    max-height: 300px;
-    max-width: 500px;
-    padding: 15px;
-    border-radius: 25px;
-    background-color: #121212;
-    border: #454545 1px solid;
-    overflow: auto;
-    scrollbar-width: thin;
-}
-.profile-photo::-webkit-scrollbar {
-    width: 4px; /* Ширина вертикальной полосы прокрутки */
-    border-radius: 10px;
+.profile_button{
+    width: 50px;
     height: 50px;
-}
-
-.profile-photo::-webkit-scrollbar-track {
-   background-color: #242424; /* Цвет полосы прокрутки */
+    background-color: #454545;
     border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
-.profile-photo::-webkit-scrollbar-thumb {
-     background-color: #bababa; /* Цвет фона полосы прокрутки */
-    border-radius: 10px; /* Скругление углов полосы прокрутки */
-    height: 5px;
-}
+.history_button{
 
-.profile h1{
-    margin: 0 0 10px 0;
-    font-size: 25px;
-}
-
-.profile-info{
-    margin-bottom: 40px;
-    color: white;
+    width: 50px;
+    height: 50px;
+    background-color: #454545;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
 }
 
 .user_technic_info{

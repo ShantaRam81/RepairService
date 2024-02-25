@@ -1,0 +1,47 @@
+.profile {
+    width: 300px;
+    max-width: 500px;
+    margin-left: 100px;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+}
+.profile-photo{
+    height: 200px;
+    max-height: 300px;
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 25px;
+    background-color: #121212;
+    border: #454545 1px solid;
+    overflow: auto;
+    scrollbar-width: thin;
+}
+.profile-photo::-webkit-scrollbar {
+    width: 4px; /* Ширина вертикальной полосы прокрутки */
+    border-radius: 10px;
+    height: 50px;
+}
+
+.profile-photo::-webkit-scrollbar-track {
+   background-color: #242424; /* Цвет полосы прокрутки */
+    border-radius: 10px;
+}
+
+.profile-photo::-webkit-scrollbar-thumb {
+     background-color: #bababa; /* Цвет фона полосы прокрутки */
+    border-radius: 10px; /* Скругление углов полосы прокрутки */
+    height: 5px;
+}
+
+.profile h1{
+    margin: 0 0 10px 0;
+    font-size: 25px;
+}
+
+.profile-info{
+    margin-bottom: 40px;
+    color: white;
+}

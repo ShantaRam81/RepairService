@@ -14,4 +14,5 @@ urlpatterns = [
     path('technic_types_actions', add_tech_type, name='TypesPage'),
     path('repairman_home', repairman_orders, name='RepairmanHomePage'),
     path('pay_order', pay_order, name='PayOrder'),
+    path('profile_page', profile_page, name='ProfilePage')
 ]
