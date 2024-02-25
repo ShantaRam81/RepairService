@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,26 +6,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Управление типами техники</title>
 </head>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/technic_types.css' %}">
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+        background: url("{% static 'image/background.jpg' %}");
+        padding: 20px;
+        background-size: cover;
+    }
+</style>
 <body>
-<h1>Добавить новый тип</h1>
-<form method="post" name="add_type">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="hidden" name="add_type" value="1">
-    <button type="submit">Добавить</button>
-</form>
+<div class="header-back">
+    <h1>Добавление новой техники</h1>
+<a class='back_arrow' href="{% url 'ManagerHomePage' %}"><i class='bx bx-arrow-back'></i></a>
+</div>
+<div class='type_page'>
+    <form class="create_type" method="post" name="add_type">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="id_username">Наименование</label>
+            {{ form.name_type }}
+        </div>
+        <input type="hidden" name="add_type" value="1">
+        <div class="button-center">
+            <button type="submit">Добавить</button>
+        </div>
+    </form>
+    <div class="types_list">
+        <h1>Классификация техники</h1>
 
-<h1>Классификация техники</h1>
-<ul>
-    {% for type in types %}
-        <li>{{ type.name_type }}</li>
-        <form method="post" style="display: inline;" >
-            {% csrf_token %}
-            <input type="hidden" name="delete_type" value="{{ type.id }}">
-            <button type="submit">Удалить</button>
-        </form>
-    {% endfor %}
-</ul>
-<a href="{% url 'ManagerHomePage' %}">Назад</a>
+            {% for type in types %}
+                <div class="type-info">
+                    <li>{{ type.name_type }}</li>
+                    <form method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete_type" value="{{ type.id }}">
+                        <button type="submit"><i class='bx bxs-trash-alt' ></i></button>
+                    </form>
+                </div>
+
+            {% endfor %}
+
+    </div>
+</div>
 </body>
 </html>

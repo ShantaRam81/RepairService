@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,20 +6,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Управление услугами</title>
 </head>
-<body>
-    <h1>Добавить услугу</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Добавить</button>
-    </form>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+      rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/service_actions.css' %}">
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+        background: url("{% static 'image/background.jpg' %}");
 
-    <h1>Список услуг</h1>
-    <ul>
-        {% for service in services %}
-            <li>{{ service.name }} - {{ service.coast }}</li>
-        {% endfor %}
-    </ul>
-<a href="{% url 'ManagerHomePage' %}">Назад</a>
+        padding: 20px;
+        background-size: cover;
+
+    }
+</style>
+<body>
+<div class="header-back">
+    <h1>Добавить услугу</h1>
+<a class='back_arrow' href="{% url 'ManagerHomePage' %}"><i class='bx bx-arrow-back'></i></a>
+</div>
+
+<div class="add-service-page">
+    <form class='add-service-form' method="post">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="id_username">Наименование</label>
+            {{ form.name }}
+        </div>
+        <div class="input-group">
+            <label for="id_email">Описание услуги</label>
+            {{ form.service_description }}
+        </div>
+        <div class="input-group">
+            <label for="id_password1">Стоимость</label>
+            {{ form.coast }}
+        </div>
+        <div class="button-center">
+            <button type="submit">Добавить</button>
+        </div>
+
+    </form>
+    <div class="servile-list">
+        <h1>Список услуг</h1>
+        <div class="scroll">
+            {% for service in services %}
+                <div class="service-info">
+                    <li>{{ service.name }}</li>
+                     <li>{{ service.coast }}</li>
+                </div>
+
+            {% endfor %}
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
 </body>
 </html>

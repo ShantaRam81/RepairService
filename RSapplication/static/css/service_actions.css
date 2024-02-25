@@ -1,0 +1,182 @@
+
+.header-back{
+    display: flex;
+}
+.header-back a{
+    margin-bottom: 20px;
+}
+.header-back h1{
+    display: flex;
+    align-items: center;
+}
+.add-service-page{
+    display: flex;
+}
+.servile-list{
+    min-width: 300px;
+    margin-left: 20px;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+}
+.scroll{
+    overflow: auto;
+}
+
+.service-info{
+    color: white;
+    background-color: #242424;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.head-info{
+    display: flex;
+}
+li{
+    list-style: none;
+}
+h2,h1{
+    color: white;
+    margin-top: 0;
+}
+
+h1{
+    margin-left: 20px;
+}
+
+.date-edit{
+    display: flex;
+}
+
+.date-edit li{
+    margin-right: 10px;
+}
+
+.tecnic_info{
+    display: flex;
+}
+
+.reqeust_duo{
+    display: flex;
+    padding: 20px;
+}
+
+.logout_form{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-service-form {
+    max-height: 350px;
+    width: 400px;
+    max-width: 500px;
+    margin-left: 20px;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+}
+
+.button-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-center button{
+    border: 0;
+    border-radius: 500px;
+    background-color: coral;
+    padding: 10px 30px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bolder;
+    transition: transform .2s;
+
+    cursor: pointer;
+}
+.custom-select select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px #595959 solid;
+    background-color: #242424;
+    color: #bababa;
+}
+
+
+i{
+    color: white;
+}
+
+.logout{
+    background-color: #212121;
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+
+}
+
+input[type="number"] {
+
+    padding: 10px; /* Внутренние отступы текстовых полей */
+    border-radius: 10px; /* Закругление углов текстовых полей */
+    border: 1px #595959 solid;
+    background-color: #242424;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #bababa;
+}
+
+.input-group textarea  {
+    background-color: #242424;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px #595959 solid;
+    width: 100%;
+    box-sizing: border-box;
+    color: #bababa;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    height: 100px;
+    resize: none;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    color: #ffffff;
+    font-size: 0.875rem;;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: calc(100% - 30px); /* Ширина поля ввода (вычисляемая, минус отступы) */
+    padding: 10px; /* Внутренние отступы текстовых полей */
+    border-radius: 10px; /* Закругление углов текстовых полей */
+    border: 1px #595959 solid;
+    background-color: #242424;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #bababa;
+}
+
+
+.bx-arrow-back{
+    margin: 30px;
+    font-size: 20px;
+}
+

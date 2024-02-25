@@ -5,78 +5,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мои заказы</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
           rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/repairman_home.css' %}">
 </head>
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+        background: url("{% static 'image/background.jpg' %}");
+
+        padding: 20px;
+        background-size: cover;
+
+    }
+</style>
 <body>
-<h1>Мои заказы</h1>
-<ul>
-    {% for order in orders %}
-        {% if order.status != 'Завершен' %}
-        <li class='order_list'>
-            {{ order.request }} - {{ order.status }}
-            <ul>
+<div class="head-info">
+    <h1>Приветсвую, {{ current_user.username }}!</h1>
+    <form class='logout_form' action="{% url 'LogoutUser' %}" method="post">
+        {% csrf_token %}
+        <button class="logout" type="submit">
+            <i class='bx bx-log-out-circle' style="vertical-align: middle;">
+                <span class="tooltiptext">Выйти</span></i>
+        </button>
+    </form>
+</div>
+
+
+{% for order in orders %}
+    {% if order.status != 'Завершен' %}
+        <div class='order_list'>
+            <div class="order-info">
+                <div class="order-infoasd">
+                    {{ order.request.technic.type }}|
+                    {{ order.request.technic.brand }}{{ order.request.technic.model }}
+                    | {{ order.request.description }}
+                </div>
+                <form class='success-button' action="{% url 'update_order_coast' order.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <input type="hidden" name="status" value="Завершен">
+                    <button type="submit" name="action" value="complete_work"><i class='bx bx-check'></i></button>
+                </form>
+            </div>
+
+            <div class='actual-service'>
                 {% for item in orders_with_services %}
                     {% if item.repair_order_id == order.id %}
                         {% for service in services %}
                             {% if service.id == item.service_id %}
-                                <li>{{ service.name }} - {{ service.coast }}</li>
+                                <div class="actual-service-info">
+                                    <li>{{ service.name }}</li>
+                                    <li>{{ service.coast }} ₽</li>
+                                </div>
+
                             {% endif %}
                         {% endfor %}
                     {% endif %}
                 {% endfor %}
-            </ul>
-            <form method="post">
-                {% csrf_token %}
-                <input type="hidden" name="order_id" value="{{ order.id }}">
-                <select name="status">
-                    <option value="Принят в работу">Принят в работу</option>
-                    <option value="В работе">В работе</option>
-                    <option value="Отменен">Отменен</option>
-                </select>
-                <button type="submit">Изменить статус</button>
 
-                <h3>Выберите услуги:</h3>
-                <ul>
+                <form class="change-status" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="order_id" value="{{ order.id }}">
+                    <select name="status">
+                        <option value="Принят в работу">Принят в работу</option>
+                        <option value="В работе">В работе</option>
+                        <option value="Отменен">Отменен</option>
+                    </select>
+                    <button type="submit">Изменить статус</button>
 
-                    {% for key, value in order_spec2.items %}
-                        {% if key == order %}
-                            {% if value %}
-                                {% for item in value %}
-                                    {% for service in services %}
-                                        {% if item == service %}
 
-                                            <li>
-                                                <input type="checkbox" name="selected_services"
-                                                       value="{{ item.id }}">
-                                                {{ item.name }} - {{ item.coast }}
-                                            </li>
-
-                                        {% endif %}
+                    <div class="choose-service">
+                        <h3>Выберите услуги:</h3>
+                        {% for key, value in order_spec2.items %}
+                            {% if key == order %}
+                                {% if value %}
+                                    {% for item in value %}
+                                        {% for service in services %}
+                                            {% if item == service %}
+                                                <li>
+                                                    <input type="checkbox" name="selected_services"
+                                                           value="{{ item.id }}">
+                                                    {{ item.name }} - {{ item.coast }} ₽
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
                                     {% endfor %}
-                                {% endfor %}
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                    {% endfor %}
+                        {% endfor %}
+
+                        <button type="submit">Добавить услуги</button>
+                    </div>
+                </form>
+            </div>
 
 
-                </ul>
-                <button type="submit">Добавить услуги</button>
-            </form>
-            <form action="{% url 'update_order_coast' order.id %}" method="post">
-                {% csrf_token %}
-                <input type="hidden" name="order_id" value="{{ order.id }}">
-                <input type="hidden" name="status" value="Завершен">
-                <button type="submit" name="action" value="complete_work">Завершить работу</button>
-            </form>
+        </div>
 
-        </li>
-        {% endif %}
-    {% endfor %}
-</ul>
+    {% endif %}
+{% endfor %}
+
 <script>
 
 </script>

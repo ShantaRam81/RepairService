@@ -1,16 +1,63 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+< lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration and Login</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main_page.css' %}">
 </head>
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+        background: url("{% static 'image/background.jpg' %}");
+
+        background-size: cover;
+
+    }
+</style>
+<header>
+    <div class="header-panel">
+        <h1>COMP</h1>
+        <div class="header-button">
+            <a href="{% url 'registration' %}">
+                <button>Регистрация</button>
+            </a>
+            <a href="{% url 'LoginUser' %}">
+                <button>Войти</button>
+            </a>
+        </div>
+
+    </div>
+</header>
 <body>
-    <h1>Welcome to our website</h1>
-    <p>Please choose an option:</p>
+<div class="content">
+    <div class="info-panels">
+        <div class="panel">
+            <h2>Добро пожаловать в наш сервис по ремонту компьютерной техники!</h2>
+    <p>Мы предоставляем качественные и профессиональные услуги по обслуживанию и ремонту компьютеров, ноутбуков, планшетов и другой техники. Независимо от того, есть у вас проблемы с железом, софтом или сетевыми настройками, наши опытные мастера с радостью помогут вам в решении любых технических проблем.</p>
+    <p>Наши преимущества:</p>
     <ul>
-        <li><a href="{% url 'registration' %}">Register</a></li>
-        <li><a href="{% url 'LoginUser' %}">Login</a></li>
+        <li>Профессиональные и квалифицированные специалисты</li>
+        <li>Быстрое обслуживание и ремонт</li>
+        <li>Использование только оригинальных запчастей и высококачественных материалов</li>
+        <li>Гарантия на все виды проведенных работ</li>
+        <li>Удобный онлайн-запись на ремонт</li>
+        <li>И многое другое!</li>
     </ul>
+    <p>Не откладывайте решение ваших компьютерных проблем на потом! Обращайтесь к нам прямо сейчас и верните свою технику к жизни!</p>
+        </div>
+        <div class="image-panel">
+            <img src="{% static 'image/computer.png' %}" alt="Описание изображения">
+        </div>
+
+    </div>
+</div>
+
 </body>
 </html>

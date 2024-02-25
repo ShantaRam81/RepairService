@@ -1,8 +1,153 @@
 .order_list{
     border-radius: 15px;
-    background-color: coral;
+    background-color: #242424;;
     padding: 20px;
     list-style: none;
     margin: 10px;
     width: 700px;
+    color: white;
+    border: 1px #bababa solid;
+}
+.success{
+    display: flex;
+    justify-content: space-between;
+}
+.order-info{
+    border: 1px #bababa solid;
+    border-radius: 15px;
+    padding: 20px;
+        display: flex;
+    justify-content: space-between;
+}
+
+.actual-service{
+    border-radius: 0 0 15px 15px;
+    padding: 20px;
+    background-color: #454545;
+    max-width: 400px;
+    margin-left:10px;
+}
+
+.actual-service-info{
+    display: flex;
+    justify-content: space-between;
+}
+
+.success-button button{
+    color: white;
+    font-size: 30px;
+    border-radius: 50px;
+    border: none;
+    background-color: #454545;
+    cursor: pointer;
+}
+
+.actual-service select{
+    width: 200px;
+          padding: 10px;
+    border-radius: 10px;
+    border: 1px #595959 solid;
+    background-color: #242424;
+    color: #bababa;
+}
+
+.actual-service button{
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: coral;
+    color: white;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 30px;
+}
+
+.change-status{
+    margin-top: 10px;
+}
+.choose-service{
+    margin-left: 10px;
+}
+.choose-service button{
+    margin-top: 10px;
+   font-family: 'Nunito Sans', sans-serif;
+    background-color: coral;
+    color: white;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 30px;
+}
+
+.bx-arrow-back{
+    margin: 30px;
+    font-size: 20px;
+}
+
+.logout {
+    background-color: rgba(33, 33, 33, 0);
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+i{
+    color: white;
+}
+.logout_form{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.head-info{
+    display: flex;
+}
+
+.header-back{
+    display: flex;
+}
+.header-back a{
+    margin-bottom: 20px;
+}
+.header-back h1{
+    display: flex;
+    align-items: center;
+}
+
+.logout .tooltiptext {
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+    width: 120px;
+    background-color: rgba(40, 40, 40, 0.35);
+    color: #979797;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    border: 1px #545454 solid;
+    position: absolute;
+    z-index: 1;
+}
+
+/* Показывать текст всплывающей подсказки при наведении указателя мыши на контейнер всплывающей подсказки */
+.logout:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.logout i{
+    color: white;
+}
+
+h2, h1 {
+    color: white;
+    margin-top: 0;
+}
+
+h1 {
+    margin-left: 20px;
 }

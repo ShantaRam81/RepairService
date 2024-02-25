@@ -1,0 +1,102 @@
+.create_type{
+    max-height: 120px;
+    width: 400px;
+    max-width: 500px;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+}
+
+.button-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.type_page{
+   display: flex;
+}
+.types_list{
+    width: 400px;
+    max-width: 500px;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+    margin-left: 20px;
+}
+.types_list h1{
+    margin-top:0;
+    color: white;
+}
+.type-info{
+    padding: 15px;
+    border-radius: 25px;
+    background-color: #454545;
+    color: #bababa;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.type-info button{
+    color: white;
+    background-color: rgba(69, 69, 69, 0);
+    border: none;
+    font-size: 20px;
+}
+
+.button-center button{
+    border: 0;
+    border-radius: 500px;
+    background-color: coral;
+    padding: 10px 30px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: bolder;
+    transition: transform .2s;
+
+    cursor: pointer;
+}
+.input-group label{
+    display: block;
+    color: #ffffff;
+    font-size: 0.875rem;;
+    margin-bottom: 5px;
+}
+
+.input-group input[type="text"],
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: calc(100% - 30px); /* Ширина поля ввода (вычисляемая, минус отступы) */
+    padding: 10px; /* Внутренние отступы текстовых полей */
+    border-radius: 10px; /* Закругление углов текстовых полей */
+    border: 1px #595959 solid;
+    background-color: #242424;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.875rem;
+    color: #bababa;
+    margin-bottom: 20px;
+}
+h2,h1{
+    color: white;
+    margin-top: 0;
+}
+.bx-arrow-back{
+    margin: 30px;
+    font-size: 20px;
+}
+.header-back{
+    display: flex;
+}
+.header-back a{
+    margin-bottom: 20px;
+    color: white;
+}
+.header-back h1{
+    display: flex;
+    align-items: center;
+}

@@ -128,7 +128,7 @@ def create_repair_request(request):
     # Вывод списка заявок конкретного клиента
     current_user = request.user
 
-    #repair_requests = RepairRequest.objects.filter(owner=current_user)
+
 
     orders = RepairOrder.objects.filter(status="Завершен")
 
@@ -219,8 +219,11 @@ def manager_page(request):
 
     # Получаем только заявки, которые еще не имеют соответствующих заказов
     all_requests = RepairRequest.objects.exclude(Заявка_на_ремонт__isnull=False)
+    current_user = request.user
 
-    return render(request, 'RSapplication/manager_home.html', {'all_requests': all_requests, 'repairmen': repairmen})
+    return render(request, 'RSapplication/manager_home.html', {'all_requests': all_requests,
+                                                               'repairmen': repairmen,
+                                                               'current_user': current_user})
 
 
 @login_required
@@ -307,11 +310,13 @@ def repairman_orders(request):
             if service not in services_for_order:
                 order_spec2[order].append(service)
 
+    current_user = request.user
     # Передаем список доступных услуг, заказы и словарь с услугами для каждого заказа в шаблон
     return render(request, 'RSapplication/repairman_home.html', {'orders': orders,
                                                                  'services': services,
                                                                  'orders_with_services': orders_with_services,
-                                                                 'order_spec2': order_spec2})
+                                                                 'order_spec2': order_spec2,
+                                                                 'current_user':current_user})
 
 
 @login_required

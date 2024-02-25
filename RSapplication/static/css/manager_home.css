@@ -1,16 +1,168 @@
-body{
+.logout {
+    background-color: rgba(33, 33, 33, 0);
+    border: none;
+    font-size: 25px;
+    cursor: pointer;
+
+}
+
+.logout_form {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.logout i{
+    color: white;
+}
+
+.head-info {
+    display: flex;
+}
+
+h2, h1 {
+    color: white;
+    margin-top: 0;
+}
+
+h1 {
+    margin-left: 20px;
+}
+
+ul {
+    padding: 0;
+}
+
+.logout .tooltiptext {
+    font-size: 14px;
     font-family: 'Nunito Sans', sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+    width: 120px;
+    background-color: rgba(40, 40, 40, 0.35);
+    color: #979797;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    border: 1px #545454 solid;
+    position: absolute;
+    z-index: 1;
 }
 
+/* Показывать текст всплывающей подсказки при наведении указателя мыши на контейнер всплывающей подсказки */
+.logout:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
 
-.request-info{
-    background-color: coral;
-    padding: 10px;
+.manager-page {
+    display: flex;
+}
+
+.manager-panel {
+    background-color: #121212;
+    padding: 20px;
+
     border-radius: 20px;
-    margin: 20px;
-    max-width: 500px;
+    margin-bottom: 20px;
+    border: #454545 1px solid;
 }
 
-li{
+.manager-panel h1 {
+    margin-top: 0;
+    color: white;
+}
+
+.request-info {
+    display: flex;
+    justify-content: space-between;
+    background-color: #242424;;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 20px 0 20px 0;
+    border: #454545 1px solid;
+}
+
+.info-button {
+    display: flex;
+}
+
+.tech-accept {
+    display: flex;
+
+}
+
+.request-info li {
+    border: #454545 1px solid;
+    background-color: #121212;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 20px;
+    color: #bababa;
+
+}
+
+li {
     list-style: none;
+}
+
+.create-order-btn {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: coral;
+    color: white;
+    font-size: 16px;
+    border-radius: 25px;
+    border: none;
+    padding: 10px 30px;
+}
+
+.accept-request-btn {
+    background-color: coral;
+    color: white;
+    border-radius: 50px;
+    font-size: 30px;
+    border: none;
+    margin-right: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.order-form {
+    display: flex;
+}
+
+.order-form select {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px #595959 solid;
+    background-color: #242424;
+    color: #bababa;
+    margin-right: 20px;
+}
+
+.manager-buttons {
+    padding: 20px 20px 0 20px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+    margin-left: 20px;
+    height: fit-content;
+}
+
+.button-style {
+    width: 50px;
+    height: 50px;
+    background-color: #454545;
+    border-radius: 10px;
+    border: none;
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: white;
 }

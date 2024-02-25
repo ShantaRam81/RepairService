@@ -4,68 +4,95 @@
 <head>
     <meta charset="UTF-8">
     <title>Страница менеджера</title>
-    {#    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>#}
-    {#    <script>#}
-    {#        $(document).ready(function () {#}
-    {#            // При нажатии на кнопку "Техника принята"#}
-    {#            $(".accept-request-btn").click(function () {#}
-    {#                // Разблокировать форму выбора мастера#}
-    {#                $(this).siblings(".order-form").find("select").prop("disabled", false);#}
-    {#                // Показать кнопку "Создать заказ"#}
-    {#                $(this).siblings(".order-form").find(".create-order-btn").show();#}
-    {#                // Скрыть кнопку "Техника принята"#}
-    {#                $(this).hide();#}
-    {#            });#}
-    {#        });#}
-    {#    </script>#}
+
 </head>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
       rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/manager_home.css' %}">
-<body>
-<h1>Список заявок</h1>
-<ul>
-    {% for request in all_requests %}
-        <div class='request-info'>
-            <li>{{ request.description }}</li>
-            <li>{{ request.technic.type }} {{ request.technic.model }} {{ request.technic.brand }}</li>
-            <li>{{ request.get_delivery_display }}</li>
-            <li>{{ request.created_time|date:"d F Y" }}</li>
-            <li>{{ request.take_date|date:"d F Y" }}</li>
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+        background: url("{% static 'image/background.jpg' %}");
 
-            <form method="post" class="accept-request-form">
-                {% csrf_token %}
-                {% if request.technic_accepted == False %}
-                    <input type="hidden" name="action" value="accept_request">
-                    <input type="hidden" name="request_id" value="{{ request.id }}">
-                    <button class="accept-request-btn" type="submit">Техника принята</button>
-                {% endif %}
-            </form>
-            <form class="order-form" method="post" action="{% url 'ManagerHomePage' %}">
-                {% csrf_token %}
-                {% if request.technic_accepted == True %}
-                    <input type="hidden" name="request_id" value="{{ request.id }}">
-                    <select name="repairman">
-                        {% for repairman in repairmen %}
-                            <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
-                        {% endfor %}
-                    </select>
-                    <button type="submit" class="create-order-btn" name="action" value="create_order">
-                        Создать заказ
-                    </button>
-                {% else %}
-                    <h1>Техника не принята</h1>
-                {% endif %}
-            </form>
+        padding: 20px;
+        background-size: cover;
+
+    }
+</style>
+<body>
+<div class="head-info">
+    <h1>Приветсвую, {{ current_user.username }}!</h1>
+    <form class='logout_form' action="{% url 'LogoutUser' %}" method="post">
+        {% csrf_token %}
+        <button class="logout" type="submit">
+            <i class='bx bx-log-out-circle' style="vertical-align: middle;">
+                <span class="tooltiptext">Выйти</span></i>
+        </button>
+    </form>
+</div>
+<ul>
+<div class="manager-page">
+    <div class="manager-panel">
+    <h1>Список заявок</h1>
+        {% for request in all_requests %}
+            <div class='request-info'>
+                <div class="info-button">
+                    <form method="post" class="accept-request-form">
+                        {% csrf_token %}
+                        {% if request.technic_accepted == False %}
+                            <input type="hidden" name="action" value="accept_request">
+                            <input type="hidden" name="request_id" value="{{ request.id }}">
+                            <button class="accept-request-btn" type="submit"><i class='bx bx-check'></i></button>
+                        {% endif %}
+                    </form>
+                    <li>{{ request.description }}</li>
+                    <li>{{ request.technic.type }} {{ request.technic.brand }} {{ request.technic.model }}</li>
+                    <li>{{ request.get_delivery_display }}</li>
+                    <li>{{ request.created_time|date:"d F Y" }}</li>
+                    <li>{{ request.owner.phone_number }} | {{ request.owner.firstname }}</li>
+                </div>
+
+
+                <form class="order-form" method="post" action="{% url 'ManagerHomePage' %}">
+                    {% csrf_token %}
+                    {% if request.technic_accepted == True %}
+                        <input type="hidden" name="request_id" value="{{ request.id }}">
+                        <select name="repairman">
+                            {% for repairman in repairmen %}
+                                <option value="{{ repairman.id }}">{{ repairman.firstname }} {{ repairman.lastname }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="create-order-btn" name="action" value="create_order">
+                            Создать заказ
+                        </button>
+
+
+                    {% endif %}
+                </form>
+            </div>
+        {% endfor %}
+
+    </div>
+    <div class="manager-buttons">
+        <div class="button-style">
+            <a  href="{% url 'ServicePage' %}"><button class='button-style'><i class='bx bx-clipboard' ></i></button></a>
+        </div>
+        <div class="button-style">
+                <a  href="{% url 'TypesPage' %}"><button class='button-style'><i class='bx bx-laptop'></i></button></a>
+        </div>
+        <div class="button-style">
+            <a href="{% url 'ProfilePage' %}"><button class="button-style" ><i class='bx bxs-user'></i></button></a>
         </div>
 
 
+    </div>
+</div>
 
-    {% endfor %}
-    <a href="{% url 'ServicePage' %}">Работа с услугами</a>
-    <a href="{% url 'TypesPage' %}">Работа с классификацией техники</a>
+
+
 </ul>
 </body>
 </html>
