@@ -1,51 +1,113 @@
-.header-panel{
-    background-color: #121212;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    height: 100px;
+*{
+    padding: 0;
+    margin: 0;
+}
+button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+header{
+
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
-    box-shadow: 0px 5px 0px -3px rgba(133, 133, 133, 0.6);
+    align-items: center;
 }
-.header-panel h1{
-    margin-left: 50px;
-    color: white;
+.logo-button{
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+.logo-button:hover{
+    scale: 1.05;
+}
+.navbar a{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 17px;
+    margin: 0 16px;
+    transition: 0.3s;
+}
+.navbar a:hover{
+    font-size: 16px;
 }
 .header-button{
+    padding: 12px 40px;
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0);
+    background-position: 100% 0;
+    background-size: 200% 200%;
+    transition: all ease 0.5s;
+    border: 1px white solid;
+}
+.header-button:hover{
+    box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+    background-position: 0 0;
+}
+.header-button button{
+    color: #ffffff;
+    font-size: 16px;
+}
+body{
+    background-color: #0B0B0F;
+    color: #ffffff;
+    max-width: 1440px;
+    margin: 0 auto;
+}
+h1, h4 {
+    margin: 0 auto;
+    text-align: center;
+}
+h1 {
+    max-width: 780px;
+    margin-top: 220px;
+    font-size: 85px;
+    font-weight: bolder;
+    line-height: 1;
+}
+h4 {
+    font-weight: lighter;
+    max-width: 700px;
+    margin-top: 16px;
+    font-size: 16px;
+    color: #787878;
+}
+.create-request{
+    margin: 0 auto;
+    margin-top: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 50px;
+    width: 156px;
+    height: 56px;
+    text-decoration: none;
+    border-radius: 10px;
+    background-image: linear-gradient(45deg, rgba(252,176,69,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    background-position: 100% 0;
+    background-size: 200% 200%;
+    box-shadow: 0 16px 32px 0 rgba(100, 100, 100, 0.35);
+    transition: .5s;
+    transition: all ease 0.3s;
+}
+.create-request:hover{
+    box-shadow: 0 0 0 0 rgba(0, 40, 120, 0);
+    background-position: 0 0;
+    scale: 1.1;
 }
 
-.header-button button{
-    margin-left:40px;
-    background-color: white;
-    color: black;
-    border-radius: 30px;
-    padding: 10px 30px;
-    border:none;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 20px;
+.create-request button{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
 }
-.content{
-    margin-top: 200px;
-    padding: 0 250px;
+.sharp-gradient, .sharp-gradient2 {
+    position: absolute;
+    top: 0;
+    z-index: -100;
 }
-.info-panels{
-    display: flex;
-
+.sharp-gradient{
+    left: 0;
 }
-.panel{
-    padding: 20px;
-    color: white;
-    background-color: rgba(36, 36, 36, 0.68);
-    border-radius: 20px;
-    width: 600px;
-    height: 600px;
-    border: 1px #595959 solid;
-}
-.image-panel img {
-    transform: scale(0.9);
+.sharp-gradient2{
+    right: 0;
 }

@@ -15,6 +15,11 @@
 
 <form method="post">
     {% csrf_token %}
+    <div class="logo-image">
+    <a href="{% url 'MainPage' %}">
+        <img src="{% static 'image/logo.svg' %}" alt="Логотип">
+    </a>
+</div>
 
     <div class="input-group">
         <label for="username">Эл. почта</label>
@@ -23,7 +28,7 @@
     <div class="input-group">
         <label for="password">Пароль</label>
         <input type="password" name="password" id="password-input">
-        <span class="pass-icon" id="pass-icon"><img src="{% static 'image/eye.png' %}" alt="" style="width:20px;height: 20px"></span>
+        <span class="pass-icon" id="pass-icon"><img src="{% static 'image/eye.png' %}" alt="" style="width:20px;height: 20px;color: red;"></span>
 
     </div>
     <div class='button-center'>
@@ -47,6 +52,7 @@
     });
 </script>
 
-
+<img class="sharp-gradient" src="{% static 'image/bg-gradient-img3.png' %}" alt="">
+<img class="sharp-gradient2" src="{% static 'image/bg-gradient-img4.png' %}" alt="">
 </body>
 </html>

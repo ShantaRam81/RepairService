@@ -16,8 +16,21 @@ form {
     padding: 35px; /* Отступы вокруг содержимого формы */
     border: #454545 1px solid;
     border-radius: 25px; /* Закругление углов формы */
-    background-color: #121212; /* Цвет фона формы */
+    background-color: rgba(18, 18, 18, 0.45); /* Цвет фона формы */
     box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+}
+
+.logo-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-top: 35px;
+    transform: scale(1.5);
+}
+
+.logo-image img {
+
 }
 
 /* Стили для текстовых полей и меток */
@@ -35,13 +48,14 @@ form {
 .input-group input[type="text"],
 .input-group input[type="email"],
 .input-group input[type="password"] {
-    width: calc(100% - 35px); /* Ширина поля ввода (вычисляемая, минус отступы) */
+    width: calc(100% - 40px); /* Ширина поля ввода (вычисляемая, минус отступы) */
     padding: 10px; /* Внутренние отступы текстовых полей */
+
+    border: 1px #595959 solid; /* Границы текстовых полей */
     border-radius: 10px; /* Закругление углов текстовых полей */
-    border: 0; /* Границы текстовых полей */
-    background-color: #242424;
+    background-color: rgb(36, 36, 36);
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.875rem;
+    font-size: 1rem;
     color: white;
 }
 
@@ -51,22 +65,28 @@ form {
     margin-top: 40px;
 }
 
-button{
+button {
     border: 0;
-    border-radius: 500px;
-    background-color: #ff4e13;
+    border-radius: 10px;
+    background-image: linear-gradient(45deg, rgba(252, 176, 69, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
     padding: 10px 30px;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 1rem;
     font-weight: bolder;
     transition: transform .2s;
+    color: white;
+    background-position: 90% 0;
+    background-size: 200% 200%;
+    box-shadow: 0 16px 32px 0 rgba(100, 100, 100, 0.35);
+    transition: .5s;
+    transition: all ease 0.3s;
 }
 
-button:hover{
+button:hover {
     transform: scale(1.05);
 }
 
-.hr-line{
+.hr-line {
     margin: 32px 20px;
     border-right: none;
     border-bottom: none;
@@ -75,29 +95,47 @@ button:hover{
     border-top: 1px solid rgb(41, 41, 41);
 }
 
-.login-prompt{
+.login-prompt {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.login-link:hover{
+
+.login-link:hover {
     color: coral;
 }
-.login-link{
+
+.login-link {
     color: white;
 }
 
-.login-text{
+.login-text {
     margin: 0;
     color: #bababa;
 }
 
-.pass-icon{
+.pass-icon {
     position: absolute;
-    right: 41%;
-    top: 45.7%;
+    right: 42%;
+    top: 52.7%;
     cursor: pointer;
     color: coral;
+}
+
+.sharp-gradient, .sharp-gradient2 {
+    position: absolute;
+
+    z-index: -100;
+}
+
+.sharp-gradient2 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.sharp-gradient {
+    right: 0;
 }
 
 

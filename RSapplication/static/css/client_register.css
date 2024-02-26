@@ -14,12 +14,27 @@ form {
     max-width: 500px; /* Ширина формы */
     margin: 0 auto; /* Центрирование по горизонтали */
     padding: 35px; /* Отступы вокруг содержимого формы */
-    border-radius: 25px; /* Закругление углов формы */
-    background-color: #121212; /* Цвет фона формы */
+    border-radius: 25px 0 0 25px; /* Закругление углов формы */
+     background-color: rgba(18, 18, 18, 0.45); /* Цвет фона формы */
     box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
     border: #454545 1px solid;
 }
+.service-logo{
+    width: 400px;
+    max-width: 500px; /* Ширина формы */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    padding: 35px; /* Отступы вокруг содержимого формы */
+    border-radius: 0 25px 25px 0;
+     background-color: rgba(18, 18, 18, 0.45); /* Цвет фона формы */
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
 
+}
+
+.reg-page{
+    display: flex;
+
+}
 /* Стили для текстовых полей и меток */
 .input-group {
     margin-bottom: 20px; /* Отступ между группами элементов */
@@ -35,10 +50,10 @@ form {
 .input-group input[type="text"],
 .input-group input[type="email"],
 .input-group input[type="password"] {
-    width: calc(100% - 35px); /* Ширина поля ввода (вычисляемая, минус отступы) */
+     width: calc(100% - 40px); /* Ширина поля ввода (вычисляемая, минус отступы) */
     padding: 10px; /* Внутренние отступы текстовых полей */
+    border: 1px #595959 solid; /* Границы текстовых полей */
     border-radius: 10px; /* Закругление углов текстовых полей */
-    border: 0; /* Границы текстовых полей */
     background-color: #242424;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 0.875rem;
@@ -53,13 +68,19 @@ form {
 
 button{
     border: 0;
-    border-radius: 500px;
-    background-color: coral;
+    border-radius: 10px;
+    background-image: linear-gradient(45deg, rgba(252,176,69,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
     padding: 10px 30px;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 1rem;
     font-weight: bolder;
     transition: transform .2s;
+    color: white;
+    background-position: 90% 0;
+    background-size: 200% 200%;
+    box-shadow: 0 16px 32px 0 rgba(100, 100, 100, 0.35);
+    transition: .5s;
+    transition: all ease 0.3s;
 }
 
 button:hover{
@@ -91,7 +112,23 @@ button:hover{
     margin: 0;
     color: #bababa;
 }
+.sharp-gradient, .sharp-gradient2 {
+    position: absolute;
+    top: 0;
+    z-index: -100;
+}
+.sharp-gradient{
+    left: 0;
+}
+.sharp-gradient2{
+    right: 0;
+}
+.logo-image{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
 @media screen and (max-width: 1366px) {
     form {
         padding: 25px; /* Уменьшаем отступы формы для экранов ноутбуков */

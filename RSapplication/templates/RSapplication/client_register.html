@@ -12,8 +12,8 @@
       rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/client_register.css' %}">
 <body>
-
-<form method="post">
+<div class="reg-page">
+    <form method="post">
     {% csrf_token %}
     <div class="input-group">
         <label for="id_username">Логин:</label>
@@ -52,6 +52,16 @@
         <p class="login-text">Есть аккаунт? <a class = "login-link" href="{% url 'LoginUser' %}">Войти</a></p>
     </div>
 </form>
+    <div class="service-logo">
+        <div class="logo-image">
+    <a href="{% url 'MainPage' %}">
+        <img src="{% static 'image/logo.svg' %}" alt="Логотип">
+    </a>
+</div>
+
+    </div>
+</div>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -91,5 +101,7 @@
         }
     });
 </script>
+<img class="sharp-gradient" src="{% static 'image/bg-gradient-img.png' %}" alt="">
+<img class="sharp-gradient2" src="{% static 'image/bg-gradient-img2.png' %}" alt="">
 </body>
 </html>

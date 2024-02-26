@@ -1,6 +1,5 @@
-{% load static %}
+{%  load static %}
 <!DOCTYPE html>
-< lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,49 +14,28 @@
 <style>
     body {
         font-family: 'Nunito Sans', sans-serif;
-        background: url("{% static 'image/background.jpg' %}");
-
-        background-size: cover;
+        background-color: #181818;
 
     }
 </style>
-<header>
-    <div class="header-panel">
-        <h1>COMP</h1>
-        <div class="header-button">
-            <a href="{% url 'registration' %}">
-                <button>Регистрация</button>
-            </a>
-            <a href="{% url 'LoginUser' %}">
-                <button>Войти</button>
-            </a>
-        </div>
-
-    </div>
-</header>
 <body>
-<div class="content">
-    <div class="info-panels">
-        <div class="panel">
-            <h2>Добро пожаловать в наш сервис по ремонту компьютерной техники!</h2>
-    <p>Мы предоставляем качественные и профессиональные услуги по обслуживанию и ремонту компьютеров, ноутбуков, планшетов и другой техники. Независимо от того, есть у вас проблемы с железом, софтом или сетевыми настройками, наши опытные мастера с радостью помогут вам в решении любых технических проблем.</p>
-    <p>Наши преимущества:</p>
-    <ul>
-        <li>Профессиональные и квалифицированные специалисты</li>
-        <li>Быстрое обслуживание и ремонт</li>
-        <li>Использование только оригинальных запчастей и высококачественных материалов</li>
-        <li>Гарантия на все виды проведенных работ</li>
-        <li>Удобный онлайн-запись на ремонт</li>
-        <li>И многое другое!</li>
-    </ul>
-    <p>Не откладывайте решение ваших компьютерных проблем на потом! Обращайтесь к нам прямо сейчас и верните свою технику к жизни!</p>
-        </div>
-        <div class="image-panel">
-            <img src="{% static 'image/computer.png' %}" alt="Описание изображения">
-        </div>
-
-    </div>
-</div>
-
+    <header>
+            <a class="logo-button" href="#"><img src="{% static 'image/logo.svg' %}" alt="Логотип"></a>
+            <div class="navbar">
+                <a href="#">О нас</a>
+                <a href="#">Контакты</a>
+                <a href="#">Lorem</a>
+            </div>
+            <a class="header-button" href="{% url 'LoginUser' %}">
+                <button class="login">Войти</button>
+            </a>
+    </header>
+<h1>Надежный ремонт компьютеров с нашим сервисом!</h1>
+<h4>Профессиональный ремонт и техническая поддержка вашей компьютерной техники - надежно, быстро, качественно. Не откладывайте уход за своей техникой на потом!</h4>
+<a class="create-request" href="{% url 'registration' %}">
+    <button>Создать заявку</button>
+</a>
+<img class="sharp-gradient" src="{% static 'image/bg-gradient-img.png' %}" alt="">
+<img class="sharp-gradient2" src="{% static 'image/bg-gradient-img2.png' %}" alt="">
 </body>
 </html>
