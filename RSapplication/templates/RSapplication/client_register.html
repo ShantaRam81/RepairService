@@ -14,50 +14,55 @@
 <body>
 <div class="reg-page">
     <form method="post">
-    {% csrf_token %}
-    <div class="input-group">
-        <label for="id_username">Логин:</label>
-        {{ form.username }}
-    </div>
-    <div class="input-group">
-        <label for="id_email">Эл. почта</label>
-        {{ form.email }}
-    </div>
-    <div class="input-group">
-        <label for="id_password1">Пароль</label>
-        {{ form.password1 }}
-    </div>
-    <div class="input-group">
-        <label for="id_password2">Повторение пароля</label>
-        {{ form.password2 }}
-    </div>
-    <div class="input-group">
-        <label for="id_firstname">Имя</label>
-        {{ form.firstname }}
-    </div>
-    <div class="input-group">
-        <label for="id_lastname">Фамилия</label>
-        {{ form.lastname }}
-    </div>
-    <div class="input-group">
-        <label for="phone_number">Номер телефона</label>
-        {{ form.phone_number }}
-    </div>
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="id_username">Логин:</label>
+            {{ form.username }}
+        </div>
+        <div class="input-group">
+            <label for="id_email">Эл. почта</label>
+            {{ form.email }}
+        </div>
+        <div class="input-group">
+            <label for="id_password1">Пароль</label>
+            {{ form.password1 }}
+        </div>
+        <div class="input-group">
+            <label for="id_password2">Повторение пароля</label>
+            {{ form.password2 }}
+        </div>
+        <div class="input-group">
+            <label for="id_firstname">Имя</label>
+            {{ form.firstname }}
+        </div>
+        <div class="input-group">
+            <label for="id_lastname">Фамилия</label>
+            {{ form.lastname }}
+        </div>
+        <div class="input-group">
+            <label for="phone_number">Номер телефона</label>
+            {{ form.phone_number }}
+        </div>
 
-    <div class='button-center'>
-        <button class="reg-button" type="submit">Зарегистрироваться</button>
-    </div>
-    <hr class='hr-line'>
-    <div class="login-prompt">
-        <p class="login-text">Есть аккаунт? <a class = "login-link" href="{% url 'LoginUser' %}">Войти</a></p>
-    </div>
-</form>
+        <div class='button-center'>
+            <button class="reg-button" type="submit">Зарегистрироваться</button>
+        </div>
+        <hr class='hr-line'>
+        <div class="login-prompt">
+            <p class="login-text">Есть аккаунт? <a class="login-link" href="{% url 'LoginUser' %}">Войти</a></p>
+        </div>
+    </form>
     <div class="service-logo">
+        <a class='logotip' href="{% url 'MainPage' %}">
+                <img src="{% static 'image/logo.svg' %}" alt="Логотип">
+            </a>
         <div class="logo-image">
-    <a href="{% url 'MainPage' %}">
-        <img src="{% static 'image/logo.svg' %}" alt="Логотип">
-    </a>
-</div>
+
+            <div class="image-container">
+                <img class="image-repair" src="{% static 'image/repairman.jpg' %}" alt="Логотип">
+            </div>
+
+        </div>
 
     </div>
 </div>

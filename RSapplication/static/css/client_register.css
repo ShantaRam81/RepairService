@@ -23,9 +23,9 @@ form {
     width: 400px;
     max-width: 500px; /* Ширина формы */
     margin: 0 auto; /* Центрирование по горизонтали */
-    padding: 35px; /* Отступы вокруг содержимого формы */
+    padding: 35px 35px 35px 0; /* Отступы вокруг содержимого формы */
     border-radius: 0 25px 25px 0;
-     background-color: rgba(18, 18, 18, 0.45); /* Цвет фона формы */
+     background-color: #050409; /* Цвет фона формы */
     box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
     border: #454545 1px solid;
 
@@ -128,6 +128,26 @@ button:hover{
     align-items: center;
     justify-content: center;
 
+
+}
+
+.image-container {
+    width: 100%;
+    height: 100%;
+}
+
+.image-repair {
+    width: 100%; /* Сделать изображение шириной во всю ширину родительского div */
+    height: auto; /* Поддерживать соотношение сторон */
+    display: block; /* Сделать изображение блочным элементом */
+}
+
+.logotip{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 35px;
+    margin-bottom: 30px;
 }
 @media screen and (max-width: 1366px) {
     form {
