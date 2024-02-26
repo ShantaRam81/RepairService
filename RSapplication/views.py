@@ -26,7 +26,10 @@ def main_page(request):
 
 
 def profile_page(request):
-    return render(request, 'RSapplication/profile.html')
+    current_user = request.user
+    requests = RepairRequest.objects.filter(owner=current_user)
+    return render(request, 'RSapplication/profile.html',{'current_user':current_user,
+                                                         'requests':requests})
 
 
 def registration(request):
