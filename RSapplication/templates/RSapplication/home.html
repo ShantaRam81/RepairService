@@ -63,14 +63,9 @@
                             <i class='bx bxs-circle green-circle'><span
                                     class="tooltiptext">Техника принята!</span></i>
                         </div>
-                    {% elif repair_request.technic_accepted == False %}
-                        <div class='one_request_status'>
-                            <i class='bx bxs-circle yellow-circle'><span
-                                    class="tooltiptext">Ожидается техника!</span></i>
-                        </div>
                     {% else %}
                         <div class='one_request_status'>
-                            <i class='bx bxs-circle '><span
+                            <i class='bx bxs-circle yellow-circle'><span
                                     class="tooltiptext">Ожидается техника!</span></i>
                         </div>
 
@@ -83,20 +78,16 @@
             {% for done_order in done_orders %}
                 {% if done_order.status == 'Завершен' and done_order.is_paid == False %}
                     <div class="order_info_pay">
-                        <div class="order_info">
-                            <div>
-                                {{ done_order.repairman.firstname }} {{ done_order.repairman.lastname }}
-                            </div>
-                            <div>
-                                {{ done_order.final_coast }} ₽
-                            </div>
-                            <div>
-                                {{ done_order.end_time |date:"d.m.Y" }}
-                            </div>
-
+                        <div class='order_info'>
+                            <strong>
+                                <div class="order-info-el">
+                                   <li> {{ done_order.repairman.firstname }}
+                                    {{ done_order.repairman.lastname }}</li>
+                                    <li>{{ done_order.final_coast }}Р</li>
+                                    <li>{{ done_order.end_time|date:"d.m.Y" }}</li>
+                                </div>
+                            </strong>
                         </div>
-
-
                         <button class="pay_order" data-order-id="{{ done_order.id }}">
                             <i class='bx bxs-credit-card'></i>
                         </button>
@@ -167,25 +158,15 @@
     </form>
     <div class="other_buttons">
         <div class="profile_button">
-
-            <button class="profile_button"><i class='bx bxs-user'></i></button>
-
+            <a href="{% url 'ProfilePage' %}"><button class="profile_button" ><i class='bx bxs-user'></i></button></a>
         </div>
         <div class="history_button">
-
-            <button class="history_button"><i class='bx bxs-book-bookmark'></i></button>
-
+            <a href="{% url 'ProfilePage' %}"><button class="history_button" ><i class='bx bxs-book-bookmark' ></i></button></a>
         </div>
     </div>
 </div>
 
 
-{% include 'RSapplication/md-profile.html' %}
-{% include 'RSapplication/md-history.html' %}
-
-
-<script src="{% static 'js/md_profile.js' %}"></script>
-<script src="{% static 'js/md_request-history.js' %}"></script>
 
 
 </body>

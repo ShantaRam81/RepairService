@@ -1,3 +1,8 @@
+html{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 body {
     font-family: 'Nunito Sans', sans-serif;
     display: flex;
@@ -119,9 +124,11 @@ button:hover{
 }
 .sharp-gradient{
     left: 0;
+    max-height: 850px;
 }
 .sharp-gradient2{
     right: 0;
+    max-height: 850px;
 }
 .logo-image{
     display: flex;

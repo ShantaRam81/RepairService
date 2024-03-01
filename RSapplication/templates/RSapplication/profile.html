@@ -11,6 +11,16 @@
       rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<style>
+    body {
+        font-family: 'Nunito Sans', sans-serif;
+        background: url("{% static 'image/background.jpg' %}");
+
+        padding: 20px;
+        background-size: cover;
+
+    }
+</style>
 <body>
 <div class="profile">
 
@@ -22,14 +32,16 @@
             <p><strong>Номер телефона:</strong> {{ current_user.phone_number }}
 
         </div>
+        {% if current_user.user_type == 'client' %}
         <div class="profile-photo">
             <h1>Ваша техника:</h1>
-            {% for repair_request in repair_requests %}
+            {% for repair_request in requests %}
                 <div class='user_technic_info'>
                     {{ repair_request.technic.type.name_type }} {{ repair_request.technic.brand }}
                 </div>
             {% endfor %}
         </div>
+        {% endif %}
     </div>
 </body>
 </html>

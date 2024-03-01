@@ -1,37 +1,42 @@
-{% load static %}
+{
+%
+load
+static
+%
+}
 
 
-.head-info{
+.head-info {
     display: flex;
 }
 
-h2,h1{
+h2, h1 {
     color: white;
     margin-top: 0;
 }
 
-h1{
+h1 {
     margin-left: 20px;
 }
 
-.date-edit{
+.date-edit {
     display: flex;
 }
 
-.date-edit li{
+.date-edit li {
     margin-right: 10px;
 }
 
-.tecnic_info{
+.tecnic_info {
     display: flex;
 }
 
-.reqeust_duo{
+.reqeust_duo {
     display: flex;
 
 }
 
-.logout_form{
+.logout_form {
     margin-bottom: 20px;
     display: flex;
     align-items: center;
@@ -48,19 +53,22 @@ h1{
     box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
     border: #454545 1px solid;
 }
-.main-duo{
+
+.main-duo {
     display: flex;
 }
-.other_buttons{
+
+.other_buttons {
     padding: 20px;
     border-radius: 25px;
     background-color: #121212;
     box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
     border: #454545 1px solid;
-    margin-left:20px;
+    margin-left: 20px;
     height: fit-content;
 }
-.profile_button{
+
+.profile_button {
     width: 50px;
     height: 50px;
     background-color: #454545;
@@ -68,11 +76,9 @@ h1{
     border: none;
     font-size: 20px;
     margin-bottom: 20px;
-    transition: 0.3s;
-
 }
 
-.history_button{
+.history_button {
 
     width: 50px;
     height: 50px;
@@ -80,20 +86,9 @@ h1{
     border-radius: 10px;
     border: none;
     font-size: 20px;
-    transition: 0.3s;
 }
 
-.history_button:hover{
-   box-shadow: 0px 0px 10px 2px rgba(52, 52, 52, 0.89) inset;
-    transform: scale(0.95);
-}
-
-.profile_button:hover{
-   box-shadow: 0px 0px 10px 2px rgba(52, 52, 52, 0.89) inset;
-    transform: scale(0.95);
-}
-
-.user_technic_info{
+.user_technic_info {
     padding: 15px 20px 15px 20px;
     border-radius: 10px;
     background-color: #242424;
@@ -109,7 +104,8 @@ h1{
     background-color: #242424;
     color: #bababa;
 }
-.request-list{
+
+.request-list {
     display: table;
     max-height: 200px;
     width: 600px;
@@ -122,8 +118,9 @@ h1{
     border: #454545 1px solid;
 }
 
-.order_list{
+.order_list {
     margin-top: 20px;
+    height: 200px;
     width: 600px;
     max-width: 800px; /* Ширина формы */
     padding: 35px; /* Отступы вокруг содержимого формы */
@@ -133,11 +130,11 @@ h1{
     border: #454545 1px solid;
 }
 
-.order_info_pay{
+.order_info_pay {
     display: flex;
-
 }
-.pay_order{
+
+.pay_order {
     border-radius: 10px;
     background-color: #242424;
     margin: 20px 0 0 10px;
@@ -148,21 +145,31 @@ h1{
     width: 50px;
     border: none;
     cursor: pointer;
-    transition: 0.3s;
 }
 
-.pay_order:hover{
-    box-shadow: 0px 0px 10px 2px rgba(52, 52, 52, 0.89) inset;
-    transform: scale(0.95);
-}
-
-.bxs-credit-card{
+.bxs-credit-card {
     box-shadow: 0px 5px 16px 4px rgba(255, 255, 255, 0.2);
-    border-radius: 30px;
-    font-size: 20px;
+    border-radius: 100px;
 }
 
-.order_info{
+.order_info {
+    min-width: 500px;
+
+
+    padding: 15px 20px 15px 20px;
+    border-radius: 10px;
+    background-color: #242424;
+    color: white;
+    list-style: none;
+    margin: 20px 0 0 0;
+}
+
+
+.one_request {
+    display: flex;
+}
+
+.one_request_tech {
     min-width: 500px;
     display: flex;
     justify-content: space-between;
@@ -174,23 +181,7 @@ h1{
     margin: 20px 0 0 0;
 }
 
-
-.one_request{
-    display: flex;
-}
-.one_request_tech{
-    min-width: 500px;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 20px 15px 20px;
-    border-radius: 10px;
-    background-color: #242424;
-    color: white;
-    list-style: none;
-    margin: 20px 0 0 0;
-}
-
-.one_request_status{
+.one_request_status {
     border-radius: 10px;
     background-color: #242424;
     margin: 20px 0 0 10px;
@@ -201,13 +192,13 @@ h1{
     width: 30px;
 }
 
-.green-circle{
+.green-circle {
     color: #6abe6a;
     box-shadow: 0px 5px 16px 4px rgba(73, 204, 71, 0.2);
     border-radius: 30px;
 }
 
-.yellow-circle{
+.yellow-circle {
     color: #e1c460;
     box-shadow: 0px 5px 16px 4px rgba(231, 212, 71, 0.2);
     border-radius: 30px;
@@ -223,18 +214,20 @@ h1{
     color: #454545;
 }
 
-i{
+i {
     color: white;
 
 }
-.logout{
+
+.logout {
     background-color: rgba(33, 33, 33, 0);
     border: none;
     font-size: 25px;
     cursor: pointer;
 
 }
-.input-group textarea  {
+
+.input-group textarea {
     background-color: #242424;
     padding: 10px;
     border-radius: 10px;
@@ -271,14 +264,15 @@ i{
     font-size: 0.875rem;
     color: #bababa;
 }
-.button-center{
+
+.button-center {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 
-.create_button{
+.create_button {
     border: 0;
     border-radius: 500px;
     background-color: coral;
@@ -315,9 +309,9 @@ i{
     transition-delay: 0s;
 }
 
-.bxs-info-circle{
+.bxs-info-circle {
     font-size: 18px;
-    margin-right:10px ;
+    margin-right: 10px;
 }
 
 .bxs-info-circle .tooltiptext {
@@ -368,12 +362,8 @@ i{
     transition-delay: 0s;
 }
 
-.hr-line{
-   transform: rotate(90deg);
-    border:1px #242424 solid;
-}
-
-.order-space{
+.order-info-el {
     display: flex;
     justify-content: space-between;
+    text-align: center;
 }
