@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .modal-profile {
+        display: none; /* Скрываем модальное окно по умолчанию */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4); /* Прозрачный фон */
+        backdrop-filter: blur(8px); /* Размытие фона */
+        opacity: 0;
+        transition: opacity 0.3s ease; /* анимация перехода */
+    }
+    .modal.show {
+    opacity: 1; /* Плавное появление */
+    }
+
+
+
+    .close-profile {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-profile:hover,
+    .close-profile:focus {
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .profile {
+        width: 400px;
+        height: 600px;
+        max-width: 500px;
+        margin: 3% auto;
+        padding: 35px;
+        border-radius: 25px;
+        background-color: #121212;
+        box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+        border: #454545 1px solid;
+    }
+
+    .profile-photo {
+
+        max-height: 390px;
+        max-width: 500px;
+        padding: 15px;
+        border-radius: 25px;
+        background-color: #121212;
+        border: #454545 1px solid;
+        overflow: auto;
+        scrollbar-width: thin;
+    }
+
+    .profile-photo::-webkit-scrollbar {
+        width: 4px; /* Ширина вертикальной полосы прокрутки */
+        border-radius: 10px;
+        height: 50px;
+    }
+
+    .profile-photo::-webkit-scrollbar-track {
+        background-color: #242424; /* Цвет полосы прокрутки */
+        border-radius: 10px;
+    }
+
+    .profile-photo::-webkit-scrollbar-thumb {
+        background-color: #bababa; /* Цвет фона полосы прокрутки */
+        border-radius: 10px; /* Скругление углов полосы прокрутки */
+        height: 5px;
+    }
+
+    .profile h1 {
+        margin: 0 0 10px 0;
+        font-size: 25px;
+    }
+
+    .profile-info {
+        margin-bottom: 40px;
+        color: white;
+    }
+
+</style>
+<body>
+<div class="modal-profile">
+
+    <div class="profile">
+        <span class="close-profile">&times;</span>
+        <div class="profile-info">
+            <h1>{{ current_user.firstname }} {{ current_user.lastname }}</h1>
+            <p><strong>Эл. почта:</strong> {{ current_user.email }}
+            <p><strong>Номер телефона:</strong> {{ current_user.phone_number }}
+
+        </div>
+    <h1>Ваша техника:</h1>
+        <div class="profile-photo">
+            <div>
+                {% for request in profile_request %}
+                <div class='user_technic_info'>
+                    {{ request.technic.type.name_type }} {{ request.technic.brand }}
+                </div>
+            {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

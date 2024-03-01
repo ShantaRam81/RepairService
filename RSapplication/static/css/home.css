@@ -68,6 +68,8 @@ h1{
     border: none;
     font-size: 20px;
     margin-bottom: 20px;
+    transition: 0.3s;
+
 }
 
 .history_button{
@@ -78,6 +80,17 @@ h1{
     border-radius: 10px;
     border: none;
     font-size: 20px;
+    transition: 0.3s;
+}
+
+.history_button:hover{
+   box-shadow: 0px 0px 10px 2px rgba(52, 52, 52, 0.89) inset;
+    transform: scale(0.95);
+}
+
+.profile_button:hover{
+   box-shadow: 0px 0px 10px 2px rgba(52, 52, 52, 0.89) inset;
+    transform: scale(0.95);
 }
 
 .user_technic_info{
@@ -111,7 +124,6 @@ h1{
 
 .order_list{
     margin-top: 20px;
-    height: 200px;
     width: 600px;
     max-width: 800px; /* Ширина формы */
     padding: 35px; /* Отступы вокруг содержимого формы */
@@ -123,6 +135,7 @@ h1{
 
 .order_info_pay{
     display: flex;
+
 }
 .pay_order{
     border-radius: 10px;
@@ -135,11 +148,18 @@ h1{
     width: 50px;
     border: none;
     cursor: pointer;
+    transition: 0.3s;
+}
+
+.pay_order:hover{
+    box-shadow: 0px 0px 10px 2px rgba(52, 52, 52, 0.89) inset;
+    transform: scale(0.95);
 }
 
 .bxs-credit-card{
     box-shadow: 0px 5px 16px 4px rgba(255, 255, 255, 0.2);
-    border-radius: 100px;
+    border-radius: 30px;
+    font-size: 20px;
 }
 
 .order_info{
@@ -351,4 +371,9 @@ i{
 .hr-line{
    transform: rotate(90deg);
     border:1px #242424 solid;
+}
+
+.order-space{
+    display: flex;
+    justify-content: space-between;
 }

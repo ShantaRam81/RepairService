@@ -26,7 +26,9 @@ def main_page(request):
 
 
 def profile_page(request):
-    return render(request, 'RSapplication/profile.html')
+    current_user = request.user
+    profile_request = RepairRequest.objects.filter(owner=current_user)
+    return render(request, 'RSapplication/md-profile.html', {'profile_request': profile_request})
 
 
 def registration(request):
@@ -128,17 +130,14 @@ def create_repair_request(request):
     # Вывод списка заявок конкретного клиента
     current_user = request.user
 
-
-
     orders = RepairOrder.objects.filter(status="Завершен")
 
     # Получаем список ID repair_requests, связанных с найденными заказами
     repair_request_ids = [order.request_id for order in orders]
 
-    # Фильтруем repair_requests по ID
-    #repair_requests = RepairRequest.objects.filter(owner=current_user, id__in=repair_request_ids)
-
     repair_requests = RepairRequest.objects.filter(owner=current_user).exclude(id__in=repair_request_ids)
+
+    profile_request = RepairRequest.objects.filter(owner=current_user)
 
     done_orders = RepairOrder.objects.filter(request__owner=current_user)
 
@@ -146,7 +145,8 @@ def create_repair_request(request):
                                                        'repair_form': repair_form,
                                                        'repair_requests': repair_requests,
                                                        'current_user': current_user,
-                                                       'done_orders': done_orders})
+                                                       'done_orders': done_orders,
+                                                       'profile_request': profile_request})
 
 
 def pay_order(request):
@@ -316,7 +316,7 @@ def repairman_orders(request):
                                                                  'services': services,
                                                                  'orders_with_services': orders_with_services,
                                                                  'order_spec2': order_spec2,
-                                                                 'current_user':current_user})
+                                                                 'current_user': current_user})
 
 
 @login_required

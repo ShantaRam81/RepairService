@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    .modal-history {
+        display: none; /* Скрываем модальное окно по умолчанию */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4); /* Прозрачный фон */
+        backdrop-filter: blur(8px); /* Размытие фона */
+        opacity: 0;
+        transition: opacity 0.3s ease; /* анимация перехода */
+    }
+
+    .modal.show {
+        opacity: 1; /* Плавное появление */
+    }
+
+
+    .close-history {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-history:hover,
+    .close-history:focus {
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .history {
+        width: 400px;
+        height: 800px;
+        max-width: 500px;
+        margin: 5% auto;
+        padding: 35px;
+        border-radius: 25px;
+        background-color: #121212;
+        box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+        border: #454545 1px solid;
+    }
+
+
+</style>
+<body>
+<div class="modal-history">
+
+    <div class="history">
+        <span class="close-history">&times;</span>
+        <div class="request-info">
+            {% for order in done_orders %}
+                <div class='user_technic_info'>
+                    <div>
+                        {{ order.request.created_time }}
+                    </div>
+                    <div>
+                        {{ request.technic.type.name_type }} {{ request.technic.brand }}
+                    </div>
+                    <div>
+
+                    </div>
+
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
