@@ -319,8 +319,35 @@ i{
     font-size: 18px;
     margin-right:10px ;
 }
+.bx-wrench{
+    font-size: 18px;
+    margin-right:10px ;
+}
 
-.bxs-info-circle .tooltiptext {
+.bx-wrench .tooltiptext{
+    width: 200px;
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+    font-family: 'Nunito Sans', sans-serif;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+    background-color: rgb(40, 40, 40);
+    color: #979797;
+    border-radius: 6px;
+    border: 1px #545454 solid;
+    position: absolute;
+    z-index: 1;
+}
+
+.bx-wrench:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+.bxs-info-circle .tooltiptext{
     width: 200px;
     padding: 10px;
     text-align: left;
