@@ -66,15 +66,33 @@
             {% for order in done_orders %}
                 <div class='user_technic_info' style="display: flex; justify-content: space-between">
                     <div>
+                        <i class='bx bx-spreadsheet'>
+                            <span class="tooltiptext">
+                                <h1 style="font-size: 17px; margin-left: 0;">Предоставленные услуги:</h1>
+                                {% for item in orders_with_services %}
+                                    {% if item.repair_order_id == order.id %}
+                                        {% for service in services %}
+                                            {% if service.id == item.service_id %}
+                                                <div class="actual-service-info">
+                                        <li>{{ service.name }} - {{ service.coast }} ₽</li>
+
+                                    </div>
+
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endfor %}
+                            </span></i>
                         {{ order.request.created_time|date:"d.m.Y" }} |
-                       <strong> {{ order.request.technic.type.name_type }} {{ order.request.technic.brand }}</strong>
+                        <strong> {{ order.request.technic.type.name_type }} {{ order.request.technic.brand }}</strong>
                     </div>
+
 
                     <div>
                         {{ order.final_coast }} ₽
                         <i class='bx bx-wrench'>
                             <span class="tooltiptext">
-                                Мастер: {{ order.repairman.firstname }}  {{ order.repairman.lastname }}</span></i>
+                                Мастер: {{ order.repairman.firstname }} {{ order.repairman.lastname }}</span></i>
                     </div>
 
 

@@ -130,10 +130,10 @@ def create_repair_request(request):
     # Вывод списка заявок конкретного клиента
     current_user = request.user
 
-    orders = RepairOrder.objects.filter(status="Завершен")
+    orders_z = RepairOrder.objects.filter(status="Завершен")
 
     # Получаем список ID repair_requests, связанных с найденными заказами
-    repair_request_ids = [order.request_id for order in orders]
+    repair_request_ids = [order.request_id for order in orders_z]
 
     repair_requests = RepairRequest.objects.filter(owner=current_user).exclude(id__in=repair_request_ids)
 
@@ -141,12 +141,19 @@ def create_repair_request(request):
 
     done_orders = RepairOrder.objects.filter(request__owner=current_user)
 
+    services = Services.objects.all()
+
+    # Создаем словарь, в котором каждому заказу соответствуют его услуги
+    orders_with_services = ServiceList.objects.all()
+
     return render(request, 'RSapplication/home.html', {'technic_form': technic_form,
                                                        'repair_form': repair_form,
                                                        'repair_requests': repair_requests,
                                                        'current_user': current_user,
                                                        'done_orders': done_orders,
-                                                       'profile_request': profile_request})
+                                                       'profile_request': profile_request,
+                                                       'orders_with_services': orders_with_services,
+                                                       'services':services})
 
 
 def pay_order(request):

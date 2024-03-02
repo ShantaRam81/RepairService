@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    .modal-EditRequest {
+        display: none; /* Скрываем модальное окно по умолчанию */
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.4); /* Прозрачный фон */
+        backdrop-filter: blur(8px); /* Размытие фона */
+        opacity: 0;
+        transition: opacity 0.3s ease; /* анимация перехода */
+    }
+
+    .modal-EditRequest{
+        opacity: 1; /* Плавное появление */
+    }
+
+
+    .close-EditRequest {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-EditRequest:hover,
+    .close-EditRequest:focus {
+        color: #ffffff;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .edit_request {
+    width: 400px;
+    max-width: 500px;
+    margin-left: 20px;
+    padding: 35px;
+    border-radius: 25px;
+    background-color: #121212;
+    box-shadow: 0px 5px 39px -22px rgba(255, 255, 255, 0.2);
+    border: #454545 1px solid;
+}
+
+
+</style>
+<body>
+
+<div class="modal-EditRequest">
+
+    <form class='edit_request' method="post">
+        <div style="display: flex; justify-content: space-between">
+            <h1 style="margin-left: 0px">Редактирование</h1>
+            <span class="close-EditRequest">&times;</span>
+        </div>
+        {% csrf_token %}
+        <div class="input-group custom-select">
+            <label for="type">Тип техники</label>
+            {{ technic_form.type }}
+        </div>
+        <div class="input-group">
+            <label for="brand">Брэнд техники</label>
+            {{ technic_form.brand }}
+        </div>
+        <div class="input-group">
+            <label for="model">Модель</label>
+            {{ technic_form.model }}
+        </div>
+        <div class="input-group">
+            <label for="description">Доп. информация</label>
+            {{ repair_form.description }}
+        </div>
+        <div class="input-group custom-select">
+            <label for="delivery">Способ доставки</label>
+            {{ repair_form.delivery }}
+        </div>
+        <div class="input-group">
+            <label for="take_date">Дата приёма техники</label>
+            {{ repair_form.take_date }}
+        </div>
+        <div class="edit_del_button">
+            <button class='edit_button' type="submit">Сохранить изменения</button>
+            <button class='delete_button' type="submit" name="delete"><i class='bx bx-trash'></i></button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
